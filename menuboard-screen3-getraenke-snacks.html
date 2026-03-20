@@ -74,12 +74,12 @@
   /* FEATURED PRODUCT HIGHLIGHT */
   .featured {
     background: rgba(255,255,255,0.06);
-    border-radius: 14px;
+    border-radius: 16px;
     border: 1px solid rgba(255,210,53,0.2);
-    padding: 8px 16px;
+    padding: 12px 18px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     flex-shrink: 0;
     position: relative;
     overflow: hidden;
@@ -94,10 +94,10 @@
   }
 
   .featured-icon {
-    font-size: 36px;
-    width: 52px;
-    height: 52px;
-    border-radius: 12px;
+    font-size: 42px;
+    width: 62px;
+    height: 62px;
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -120,13 +120,13 @@
   }
 
   .featured-name {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 800;
     color: #fff;
   }
 
   .featured-price {
-    font-size: 26px;
+    font-size: 30px;
     font-weight: 900;
     color: #ffd235;
     text-shadow: 0 2px 12px rgba(255,210,53,0.3);
@@ -137,7 +137,7 @@
   .featured.super {
     border-color: rgba(0,229,200,0.3);
     background: linear-gradient(135deg, rgba(0,229,200,0.1) 0%, rgba(139,92,246,0.08) 100%);
-    padding: 10px 18px;
+    padding: 14px 20px;
   }
 
   .featured.super::before {
@@ -146,24 +146,24 @@
   }
 
   .featured.super .featured-icon {
-    font-size: 44px;
-    width: 64px;
-    height: 64px;
+    font-size: 52px;
+    width: 76px;
+    height: 76px;
   }
 
   .featured.super .featured-badge {
     background: linear-gradient(135deg, #00e5c8, #8b5cf6);
     color: #fff;
-    font-size: 10px;
+    font-size: 11px;
     padding: 3px 12px;
   }
 
   .featured.super .featured-name {
-    font-size: 22px;
+    font-size: 24px;
   }
 
   .featured.super .featured-price {
-    font-size: 32px;
+    font-size: 36px;
   }
 
   /* LIST PANEL */
@@ -572,8 +572,8 @@
         if (item) { col1 += renderFeatured(item, config); break; }
       }
     }
-    col1 += renderPanel('Softdrinks', softdrinksFiltered, 1);
-    if (energyFiltered.length) col1 += renderPanel('Energy', energyFiltered, 'auto');
+    col1 += renderPanel('Softdrinks', softdrinksFiltered, 'none');
+    if (energyFiltered.length) col1 += renderPanel('Energy', energyFiltered, 'none');
     col1 += '</div>';
 
     // Spalte 2: Saefte & Wasser + Warme Getraenke + Alkohol
