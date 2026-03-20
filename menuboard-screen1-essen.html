@@ -43,6 +43,41 @@
     justify-content: center;
     gap: 24px;
     padding: 0 40px;
+    position: relative;
+  }
+
+  .banner-left {
+    position: absolute;
+    left: 28px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .banner-logo {
+    height: 44px;
+    filter: brightness(0) invert(1) drop-shadow(0 1px 3px rgba(0,0,0,0.3));
+  }
+
+  .banner-datetime {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.2;
+  }
+
+  .banner-time {
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  }
+
+  .banner-date {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.85);
+    text-shadow: 0 1px 4px rgba(0,0,0,0.3);
   }
 
   .banner-text {
@@ -282,6 +317,13 @@
 <div class="screen">
 
   <div class="top-banner">
+    <div class="banner-left">
+      <img class="banner-logo" src="https://spacemagic.fun/fileadmin/logo.svg" alt="Space Magic">
+      <div class="banner-datetime">
+        <span class="banner-time" id="clock">--:--</span>
+        <span class="banner-date" id="date">--</span>
+      </div>
+    </div>
     <span class="banner-emoji">🍔</span>
     <span class="banner-text">Unsere Speisen</span>
     <span class="banner-emoji">🍕</span>
@@ -309,13 +351,79 @@
     'Würstchen': 'yellow', 'Fingerfood': 'purple',
   };
 
+  // Custom SVG Burger-Icons (stroke-based, neon style)
+  const BURGER_SVGS = {
+    'Hamburger': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:100%;height:100%">
+      <path d="M4.5 11C4.5 7 7.5 4 12 4s7.5 3 7.5 7"/>
+      <path d="M3.5 11h17"/>
+      <path d="M4 13.5c1.2.8 2.5 1 4 .5s2.5-1 4-.5 2.5 1 4 .5 2.8-.3 4-.5"/>
+      <rect x="4" y="15" width="16" height="2.5" rx="1.2"/>
+      <path d="M4 19h16c0 0 0 1.5-1.5 2.5-.8.5-2 .5-2.5.5h-8c-.5 0-1.7 0-2.5-.5C4 20.5 4 19 4 19z"/>
+    </svg>`,
+    'Cheeseburger': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:100%;height:100%">
+      <path d="M4.5 9.5C4.5 6 7.5 3 12 3s7.5 3 7.5 6.5"/>
+      <path d="M3.5 9.5h17"/>
+      <path d="M3.5 9.5l1 2.5 2-2 2 2 2-2 2 2 2-2 2 2 2-2 1 2"/>
+      <rect x="4" y="14" width="16" height="2.5" rx="1.2"/>
+      <path d="M4 18h16c0 0 0 1.5-1.5 2.5-.8.5-2 .5-2.5.5h-8c-.5 0-1.7 0-2.5-.5C4 19.5 4 18 4 18z"/>
+    </svg>`,
+    'Chicken Burger': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:100%;height:100%">
+      <path d="M4.5 10C4.5 6.5 7.5 3.5 12 3.5S19.5 6.5 19.5 10"/>
+      <circle cx="9" cy="6" r="0.6"/>
+      <circle cx="12.5" cy="5" r="0.6"/>
+      <circle cx="15.5" cy="6.5" r="0.6"/>
+      <path d="M3.5 10h17"/>
+      <path d="M5 13c.5-.8 1-1.5 1.8-1.5.7 0 1 .6 1.7.6s.9-.6 1.7-.6c.7 0 1 .6 1.7.6s.9-.6 1.7-.6c.7 0 1 .6 1.7.6s.9-.6 1.7-.6c.8 0 1.3.7 1.8 1.5"/>
+      <path d="M5 13h14c0 1.5-.8 2.5-2 2.5H7C5.8 15.5 5 14.5 5 13z"/>
+      <path d="M4 17.5h16"/>
+      <path d="M4 17.5c0 0 0 1.5 1.5 2.5.8.5 2 .5 2.5.5h8c.5 0 1.7 0 2.5-.5 1.5-1 1.5-2.5 1.5-2.5"/>
+    </svg>`,
+    'Veggie Burger': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:100%;height:100%">
+      <path d="M4.5 10C4.5 6.5 7.5 3.5 12 3.5S19.5 6.5 19.5 10"/>
+      <path d="M3.5 10h17"/>
+      <path d="M3 12.5c1.5-2 4-2 5-.5"/>
+      <path d="M4 11c.8 0 2.5.5 3 1.5"/>
+      <path d="M5 14c1.5-1.5 3.5-2 5-1s3.5-.5 5 1 2.5 1.5 4 1"/>
+      <rect x="5" y="15.5" width="14" height="2" rx="1"/>
+      <circle cx="8" cy="16.5" r="0.5"/>
+      <circle cx="11" cy="16.5" r="0.5"/>
+      <circle cx="14" cy="16.5" r="0.5"/>
+      <circle cx="16.5" cy="16.5" r="0.5"/>
+      <path d="M4 19.5h16"/>
+      <path d="M4 19.5c0 0 0 1.2 1.5 2 .8.4 2 .5 2.5.5h8c.5 0 1.7-.1 2.5-.5 1.5-.8 1.5-2 1.5-2"/>
+    </svg>`,
+  };
+
+  // Individuelle Farben pro Burger-Variante
+  const BURGER_COLORS = {
+    'Hamburger':      '#00e5c8',  // teal
+    'Cheeseburger':   '#ffd235',  // gelb (Käse)
+    'Chicken Burger': '#ff7b3a',  // orange (Crispy)
+    'Veggie Burger':  '#22c55e',  // grün (Veggie)
+  };
+
+  // Uhrzeit & Datum
+  function updateClock() {
+    const now = new Date();
+    const time = now.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+    const date = now.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    document.getElementById('clock').textContent = time;
+    document.getElementById('date').textContent = date;
+  }
+  updateClock();
+  setInterval(updateClock, 30000);
+
   function renderProduct(item, accentColor) {
     const isHighlight = item['Highlight'] === 'ja';
     const icon = PRODUCT_ICONS[item['Produkt']] || item['Icon'] || '';
     const desc = item['Beschreibung'] ? `<span class="p-desc">${item['Beschreibung']}</span>` : '';
+    const burgerColor = BURGER_COLORS[item['Produkt']];
+    const iconHTML = BURGER_SVGS[item['Produkt']]
+      ? `<span class="p-icon" style="color:${burgerColor}">${BURGER_SVGS[item['Produkt']]}</span>`
+      : `<span class="p-icon">${icon}</span>`;
     return `
       <div class="product-row${isHighlight ? ' highlight' : ''}">
-        <span class="p-icon">${icon}</span>
+        ${iconHTML}
         <span class="p-name">${item['Produkt']}</span>
         ${desc}
         ${isHighlight ? '<span class="p-badge">Beliebt</span>' : ''}
@@ -327,10 +435,14 @@
   function renderCategory(catName, items, color) {
     const accentColor = ACCENT_COLORS[color] || '#ffd235';
     const icon = items[0]?.['Icon'] || '';
+    // Burger-Kategorie bekommt das Hamburger-SVG als Header-Icon
+    const headerIcon = (catName === 'Burger' && BURGER_SVGS['Hamburger'])
+      ? `<span style="color:${accentColor};width:28px;height:28px;display:inline-flex">${BURGER_SVGS['Hamburger']}</span>`
+      : icon;
     return `
       <div class="cat-card" data-color="${color}">
         <div class="cat-header">
-          <div class="cat-icon-wrap" style="background:${accentColor}33">${icon}</div>
+          <div class="cat-icon-wrap" style="background:${accentColor}33">${headerIcon}</div>
           <div class="cat-name" style="color:${accentColor}">${catName}</div>
         </div>
         <div class="products">
