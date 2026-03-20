@@ -166,3 +166,12 @@ function startAutoRefresh(renderFn) {
     await renderFn();
   }, REFRESH_INTERVAL);
 }
+
+/**
+ * Seite komplett neu laden (fuer Elementi/SpinetiX Player)
+ * Laedt die Seite alle 30 Min komplett neu um sicherzustellen
+ * dass der Browser-Cache aktualisiert wird.
+ */
+const PAGE_RELOAD_INTERVAL = 30 * 60 * 1000; // 30 Minuten
+setTimeout(() => { window.location.reload(); }, PAGE_RELOAD_INTERVAL);
+setInterval(() => { window.location.reload(); }, PAGE_RELOAD_INTERVAL);

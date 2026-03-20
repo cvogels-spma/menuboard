@@ -175,9 +175,6 @@
   }
 
   .product-row .p-badge {
-    position: absolute;
-    top: 6px;
-    right: 12px;
     background: linear-gradient(135deg, #ffd235, #ff7b3a);
     color: #1a0a2e;
     font-size: 10px;
@@ -186,6 +183,8 @@
     border-radius: 100px;
     text-transform: uppercase;
     letter-spacing: 1px;
+    flex-shrink: 0;
+    margin-right: 8px;
   }
 
   /* BOTTOM BAR */
@@ -278,8 +277,8 @@
         <span class="p-icon">${icon}</span>
         <span class="p-name">${item['Produkt']}</span>
         ${desc}
-        <span class="p-price" style="color:${accentColor}">${formatPrice(item['Preis'])}</span>
         ${isHighlight ? '<span class="p-badge">Beliebt</span>' : ''}
+        <span class="p-price" style="color:${accentColor}">${formatPrice(item['Preis'])}</span>
       </div>
     `;
   }
