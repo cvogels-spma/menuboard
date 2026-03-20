@@ -260,6 +260,23 @@
     margin-right: 6px;
   }
 
+  .li-label {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+    margin-right: 6px;
+  }
+
+  .li-label.bio {
+    background: rgba(34,197,94,0.15);
+    color: #22c55e;
+    border: 1px solid rgba(34,197,94,0.25);
+  }
+
   .li-price {
     font-size: 24px;
     font-weight: 800;
@@ -433,14 +450,38 @@
     'Coca Cola':     { badge: 'Klassiker' },
   };
 
+  // Lokale Labels (als farbige Badges dargestellt)
+  const LOCAL_BADGES = {
+    'Grüner Tee':    { text: 'Bio', style: 'bio' },
+    'Ostfriesentee': { text: 'Bio', style: 'bio' },
+    'Kamillentee':   { text: 'Bio', style: 'bio' },
+  };
+
+  // Volumenangaben pro Produkt
+  const VOLUME_LABELS = {
+    'Coca Cola Zero':  '0,5l',  'Fanta Orange':    '0,5l',
+    'Sprite':          '0,5l',  'Mezzo Mix':       '0,5l',
+    'Lift Apfelschorle':'0,5l', 'Fuze Tea Pfirsich':'0,5l',
+    'Fuze Tea Zitronengras':'0,5l', 'Powerrade M.Blast':'0,5l',
+    'Monster Energy':  '0,5l',  'Monster Ultra White':'0,5l',
+    'Auricher Orangensaft':'0,2l', 'Auricher Apfelsaft':'0,2l',
+    'Vio Schorle Zitrone-Limette':'0,5l', 'Vio Bio Lemon':'0,5l',
+    'Vio Bio Limette-Orange':'0,5l', 'Vio Wasser medium':'0,5l',
+    'Vio Wasser still':'0,5l',
+  };
+
   function renderListItem(item) {
     const isHL = item['Highlight'] === 'ja';
+    const badge = LOCAL_BADGES[item['Produkt']];
+    const volume = VOLUME_LABELS[item['Produkt']];
     const desc = item['Beschreibung'] ? `<span class="li-desc">${item['Beschreibung']}</span>` : '';
+    const badgeHTML = badge ? `<span class="li-label ${badge.style}">${badge.text}</span>` : '';
+    const volHTML = volume ? `<span class="li-desc">${volume}</span>` : '';
     return `
       <div class="li${isHL ? ' hl' : ''}">
         <span class="li-icon">${item['Icon']}</span>
         <span class="li-name">${item['Produkt']}</span>
-        ${desc}
+        ${badgeHTML}${desc}${volHTML}
         <span class="li-price">${formatPrice(item['Preis'])}</span>
       </div>
     `;
@@ -601,7 +642,7 @@
     if (gebaeckItems.length) {
       const first = sg['Donuts']?.[0] || gebaeckItems[0];
       const items = gebaeckItems.map(i => ({...i, Icon: i['Icon'] || first['Icon'], Farbe: i['Farbe'] || first['Farbe']}));
-      col3 += renderPanel('Gebäck & Kuchen', items, 1);
+      col3 += renderPanel('Gebäck & Kuchen', items, 'none');
     }
 
     // Panel 2: Alles Suesse + Chips (Schokoriegel + Suessigkeiten + Chips)
@@ -610,7 +651,7 @@
       ...(sg['Süßigkeiten'] || []),
       ...(sg['Chips & Snacks'] || []),
     ];
-    if (allSnacks.length) col3 += renderPanel('Snacks & Süßes', allSnacks, 1.5);
+    if (allSnacks.length) col3 += renderPanel('Snacks & Süßes', allSnacks, 'none');
 
     col3 += '</div>';
 
