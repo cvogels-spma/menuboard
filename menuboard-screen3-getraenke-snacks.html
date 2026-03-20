@@ -106,6 +106,14 @@
 
   .featured-info { flex: 1; }
 
+  .featured-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    font-weight: 400;
+    margin-top: 2px;
+    font-style: italic;
+  }
+
   .featured-badge {
     display: inline-block;
     background: linear-gradient(135deg, #ffd235, #ff7b3a);
@@ -285,6 +293,18 @@
     border: 1px solid rgba(34,197,94,0.25);
   }
 
+  .li-label.neu {
+    background: rgba(255,61,142,0.15);
+    color: #ff3d8e;
+    border: 1px solid rgba(255,61,142,0.25);
+  }
+
+  .li-label.regional {
+    background: rgba(255,210,53,0.15);
+    color: #ffd235;
+    border: 1px solid rgba(255,210,53,0.25);
+  }
+
   .li-price {
     font-size: 24px;
     font-weight: 800;
@@ -453,8 +473,8 @@
 
   // Produkte die als Featured-Karte hervorgehoben werden
   const FEATURED_PRODUCTS = {
-    'Slush Eis':     { badge: 'Top Seller', superSize: true },
-    'Kaffee Crema':  { badge: 'Beliebt' },
+    'Slush Eis':     { badge: 'Top Seller', superSize: true, desc: 'Voller Geschmack, ohne Zucker' },
+    'Kaffee Crema':  { badge: 'Beliebt', desc: 'Frisch gebrüht' },
     'Coca Cola':     { badge: 'Klassiker' },
   };
 
@@ -463,6 +483,9 @@
     'Grüner Tee':    { text: 'Bio', style: 'bio' },
     'Ostfriesentee': { text: 'Bio', style: 'bio' },
     'Kamillentee':   { text: 'Bio', style: 'bio' },
+    'Monster Ultra White': { text: 'Neu', style: 'neu' },
+    'Auricher Orangensaft': { text: 'Regional', style: 'regional' },
+    'Auricher Apfelsaft':   { text: 'Regional', style: 'regional' },
   };
 
   // Volumenangaben pro Produkt
@@ -550,12 +573,14 @@
     const iconContent = FEATURED_SVGS[item['Produkt']] || icon;
     const logo = FEATURED_LOGOS[item['Produkt']];
     const logoHTML = logo ? `<img src="${logo}" alt="" style="height:22px;margin-left:8px;vertical-align:middle;filter:brightness(1.2)">` : '';
+    const descHTML = config.desc ? `<div class="featured-desc">${config.desc}</div>` : '';
     return `
       <div class="featured${isSuper ? ' super' : ''}">
         <div class="featured-icon" style="background:${bgColor}">${iconContent}</div>
         <div class="featured-info">
           <div class="featured-badge">${config.badge}</div>
           <div class="featured-name">${item['Produkt']}${logoHTML}</div>
+          ${descHTML}
         </div>
         <div class="featured-price">${formatPrice(item['Preis'])}</div>
       </div>
