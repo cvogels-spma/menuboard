@@ -14,15 +14,16 @@ const CACHE_KEY = 'menuboard_cache';
 const PRODUCT_IMAGES = {};
 
 // Emoji-Icons pro Produkt (fuer grosse Darstellung auf Screen 1)
+// Nur 1 Emoji pro Produkt - klar und eindeutig
 const PRODUCT_ICONS = {
   'Hamburger':        '🍔',
-  'Cheeseburger':     '🧀🍔',
-  'Chicken Burger':   '🐔🍔',
-  'Veggie Burger':    '🥬🍔',
-  'Margherita':       '🍕🧀',
-  'Salami':           '🍕🥓',
+  'Cheeseburger':     '🍔',
+  'Chicken Burger':   '🍔',
+  'Veggie Burger':    '🍔',
+  'Margherita':       '🍕',
+  'Salami':           '🍕',
   'Wienerwurst':      '🌭',
-  'Bockwurst im Br\u00f6tchen': '🌭🥖',
+  'Bockwurst im Br\u00f6tchen': '🌭',
   'Pommes':           '🍟',
   'Nuggets':          '🍗',
 };
@@ -108,7 +109,6 @@ async function fetchMenuData() {
     const csv = await response.text();
     const data = parseCSV(csv);
     const visible = data.filter(item => item['Sichtbar'] === 'ja');
-    // Cache speichern
     try { localStorage.setItem(CACHE_KEY, JSON.stringify(visible)); } catch(e) {}
     return visible;
   } catch (err) {
@@ -163,7 +163,6 @@ function getProductImage(productName) {
 function startAutoRefresh(renderFn) {
   renderFn();
   setInterval(async () => {
-    // Sanfter Refresh: Content nicht leeren, sondern ueberschreiben
     await renderFn();
   }, REFRESH_INTERVAL);
 }

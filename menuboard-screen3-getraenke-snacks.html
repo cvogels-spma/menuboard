@@ -472,23 +472,29 @@
     col2 += renderPanel('Alkohol', dg['Alkohol'], 0.5);
     col2 += '</div>';
 
-    // Spalte 3: Snacks & Suesses
+    // Spalte 3: Snacks & Suesses - nur 2 Panels fuer weniger Overflow
     let col3 = '<div class="col">';
-    // Donuts + Muffins
-    const donutsMuffins = [
+
+    // Panel 1: Gebaeck (Donuts + Muffins + Kuchen)
+    const gebaeckItems = [
       ...(sg['Donuts'] || []).map(i => ({...i, Produkt: 'Donut ' + i['Produkt']})),
       ...(sg['Muffins'] || []).map(i => ({...i, Produkt: 'Muffin ' + i['Produkt']})),
+      ...(sg['Kuchen'] || []),
     ];
-    if (donutsMuffins.length) {
-      const first = sg['Donuts']?.[0] || donutsMuffins[0];
-      const items = donutsMuffins.map(i => ({...i, Icon: i['Icon'] || first['Icon'], Farbe: first['Farbe']}));
-      col3 += renderPanel('Donuts & Muffins', items, 0.6);
+    if (gebaeckItems.length) {
+      const first = sg['Donuts']?.[0] || gebaeckItems[0];
+      const items = gebaeckItems.map(i => ({...i, Icon: i['Icon'] || first['Icon'], Farbe: i['Farbe'] || first['Farbe']}));
+      col3 += renderPanel('Gebäck & Kuchen', items, 1);
     }
-    col3 += renderPanel('Kuchen', sg['Kuchen'], 0.45);
-    // Schokoriegel + Suessigkeiten
-    const sweetItems = [...(sg['Schokoriegel'] || []), ...(sg['Süßigkeiten'] || [])];
-    if (sweetItems.length) col3 += renderPanel('Schokoriegel & Süßes', sweetItems, 1.2);
-    col3 += renderPanel('Chips & Snacks', sg['Chips & Snacks'], 0.6);
+
+    // Panel 2: Alles Suesse + Chips (Schokoriegel + Suessigkeiten + Chips)
+    const allSnacks = [
+      ...(sg['Schokoriegel'] || []),
+      ...(sg['Süßigkeiten'] || []),
+      ...(sg['Chips & Snacks'] || []),
+    ];
+    if (allSnacks.length) col3 += renderPanel('Snacks & Süßes', allSnacks, 1.5);
+
     col3 += '</div>';
 
     container.innerHTML = col1 + col2 + col3;
