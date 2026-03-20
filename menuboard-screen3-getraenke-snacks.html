@@ -329,8 +329,66 @@
     letter-spacing: 2px;
   }
 
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-  .col { animation: fadeIn 0.4s ease; }
+  /* ANIMATIONEN */
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  @keyframes glowPulse {
+    0%, 100% { text-shadow: 0 2px 12px currentColor; }
+    50% { text-shadow: 0 2px 24px currentColor, 0 0 40px currentColor; }
+  }
+
+  @keyframes floatIcon {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+
+  .col {
+    opacity: 0;
+    animation: slideUp 0.6s ease forwards;
+  }
+  .col:nth-child(1) { animation-delay: 0.1s; }
+  .col:nth-child(2) { animation-delay: 0.3s; }
+  .col:nth-child(3) { animation-delay: 0.5s; }
+
+  .featured-badge {
+    background-size: 200% 100%;
+    animation: shimmer 4s ease-in-out infinite;
+  }
+  .featured.super .featured-badge {
+    background: linear-gradient(90deg, #00e5c8 0%, #8b5cf6 40%, #00e5c8 80%);
+    background-size: 200% 100%;
+    color: #fff;
+    animation: shimmer 4s ease-in-out infinite;
+  }
+  .featured:not(.super) .featured-badge {
+    background: linear-gradient(90deg, #ffd235 0%, #ff7b3a 40%, #ffd235 80%);
+    background-size: 200% 100%;
+    animation: shimmer 4s ease-in-out infinite;
+  }
+
+  .featured .featured-price {
+    animation: glowPulse 3s ease-in-out infinite;
+  }
+
+  .featured .featured-icon {
+    animation: floatIcon 3s ease-in-out infinite;
+  }
+
+  .featured.super .featured-icon {
+    filter: drop-shadow(0 0 6px rgba(0,229,200,0.4)) drop-shadow(0 0 12px rgba(139,92,246,0.2));
+  }
+
+  .li.hl .li-price {
+    animation: glowPulse 3s ease-in-out infinite;
+  }
 </style>
 </head>
 <body>
@@ -384,12 +442,27 @@
     `;
   }
 
+  const SLUSHIE_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" style="width:100%;height:100%">
+    <line x1="14.5" y1="1" x2="12.5" y2="8.5" stroke="#ff3d8e" stroke-width="1.8"/>
+    <path d="M6.5 9.5 Q6.5 5.5 12 5.5 Q17.5 5.5 17.5 9.5" stroke="url(#slushDome)" stroke-width="1.8" fill="rgba(0,229,200,0.15)"/>
+    <rect x="6" y="9.5" width="12" height="1.5" rx="0.5" stroke="url(#slushDome)" stroke-width="1.2" fill="rgba(139,92,246,0.25)"/>
+    <path d="M6.5 11 L8.5 22 h7 L17.5 11" stroke="url(#slushCup)" stroke-width="1.8" fill="rgba(0,229,200,0.08)"/>
+    <path d="M9 15.5 Q12 13.5 15 15.5" stroke="#8b5cf6" stroke-width="1.2" fill="none" opacity="0.7"/>
+    <path d="M9.5 18.5 Q12 16.5 14.5 18.5" stroke="#ff3d8e" stroke-width="1.2" fill="none" opacity="0.5"/>
+    <defs>
+      <linearGradient id="slushDome" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#00e5c8"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient>
+      <linearGradient id="slushCup" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00e5c8"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient>
+    </defs>
+  </svg>`;
+
   function renderFeatured(item, config) {
     const isSuper = config.superSize;
     const bgColor = isSuper ? 'rgba(0,229,200,0.15)' : 'rgba(255,210,53,0.1)';
+    const icon = PRODUCT_ICONS[item['Produkt']] || item['Icon'];
+    const iconContent = (item['Produkt'] === 'Slush Eis') ? SLUSHIE_SVG : icon;
     return `
       <div class="featured${isSuper ? ' super' : ''}">
-        <div class="featured-icon" style="background:${bgColor}">${item['Icon']}</div>
+        <div class="featured-icon" style="background:${bgColor}">${iconContent}</div>
         <div class="featured-info">
           <div class="featured-badge">${config.badge}</div>
           <div class="featured-name">${item['Produkt']}</div>
