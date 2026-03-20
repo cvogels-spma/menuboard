@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920">
+<title>Space Magic - Screen 2: Menüs & Aktionen</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    font-family: 'Outfit', sans-serif;
+    background: #1a0a2e;
+  }
+
+  body {
+    background:
+      radial-gradient(ellipse 1000px 800px at 50% 40%, rgba(139,92,246,0.3) 0%, transparent 60%),
+      radial-gradient(ellipse 800px 600px at 20% 80%, rgba(255,61,142,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse 800px 600px at 80% 20%, rgba(0,229,200,0.1) 0%, transparent 60%),
+      linear-gradient(180deg, #1a0a2e 0%, #0d0620 100%);
+  }
+
+  .screen {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* ANIMATED TOP STRIP */
+  .promo-strip {
+    height: 48px;
+    background: linear-gradient(90deg, #ff3d8e 0%, #8b5cf6 30%, #00e5c8 60%, #ffd235 100%);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .promo-track {
+    display: flex;
+    gap: 60px;
+    animation: marquee 25s linear infinite;
+    white-space: nowrap;
+  }
+
+  .promo-track span {
+    font-size: 16px;
+    font-weight: 800;
+    color: #1a0a2e;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* HERO SECTION */
+  .hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 64px;
+    gap: 48px;
+    height: 360px;
+  }
+
+  .hero-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #ffd235, #ff7b3a);
+    color: #1a0a2e;
+    font-size: 16px;
+    font-weight: 800;
+    padding: 10px 24px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    width: fit-content;
+    box-shadow: 0 4px 24px rgba(255,210,53,0.3);
+  }
+
+  .hero-title {
+    font-size: 72px;
+    font-weight: 900;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.8) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-sub {
+    font-size: 24px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.4;
+  }
+
+  .hero-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  .hero-price {
+    font-size: 80px;
+    font-weight: 900;
+    color: #ffd235;
+    line-height: 1;
+    text-shadow: 0 4px 24px rgba(255,210,53,0.3);
+  }
+
+  .hero-right {
+    width: 380px;
+    height: 300px;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 110px;
+    background: radial-gradient(circle, rgba(139,92,246,0.2) 0%, rgba(139,92,246,0.03) 100%);
+    border: 1px solid rgba(255,255,255,0.06);
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  /* MENU COMBOS - dynamisches Grid */
+  .combos-section {
+    flex: 1;
+    padding: 0 40px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+  }
+
+  .section-label {
+    font-size: 18px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.4);
+    flex-shrink: 0;
+  }
+
+  .combos-grid {
+    flex: 1;
+    display: grid;
+    gap: 16px;
+  }
+
+  .combo {
+    background: rgba(255,255,255,0.05);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 24px 28px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .combo::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .combo:nth-child(1)::before { background: linear-gradient(90deg, #ff7b3a, #ffd235); }
+  .combo:nth-child(2)::before { background: linear-gradient(90deg, #ff3d8e, #8b5cf6); }
+  .combo:nth-child(3)::before { background: linear-gradient(90deg, #00e5c8, #8b5cf6); }
+  .combo:nth-child(4)::before { background: linear-gradient(90deg, #ffd235, #ff3d8e); }
+  .combo:nth-child(5)::before { background: linear-gradient(90deg, #8b5cf6, #00e5c8); }
+  .combo:nth-child(6)::before { background: linear-gradient(90deg, #ff7b3a, #ff3d8e); }
+
+  .combo-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 18px;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.04);
+    font-size: 48px;
+  }
+
+  .combo-info { flex: 1; min-width: 0; }
+
+  .combo-name {
+    font-size: 24px;
+    font-weight: 800;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  .combo-desc {
+    font-size: 15px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.3;
+  }
+
+  .combo-price {
+    font-size: 32px;
+    font-weight: 900;
+    color: #ffd235;
+    flex-shrink: 0;
+    text-shadow: 0 2px 12px rgba(255,210,53,0.2);
+  }
+
+  /* PARTY FLATS STRIP */
+  .party-strip {
+    height: 88px;
+    background: linear-gradient(90deg, rgba(255,210,53,0.08) 0%, rgba(139,92,246,0.08) 50%, rgba(0,229,200,0.08) 100%);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    padding: 0 40px;
+  }
+
+  .flat-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .flat-icon { font-size: 28px; }
+  .flat-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.7);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .flat-price {
+    font-size: 24px;
+    font-weight: 900;
+    color: #ffd235;
+  }
+  .flat-unit {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.3);
+  }
+  .flat-divider {
+    width: 1px;
+    height: 36px;
+    background: rgba(255,255,255,0.08);
+  }
+
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: rgba(255,255,255,0.3);
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .combo, .flat-item { animation: fadeIn 0.4s ease; }
+</style>
+</head>
+<body>
+
+<div class="screen">
+
+  <div class="promo-strip">
+    <div class="promo-track">
+      <span>★ Kindergeburtstag feiern bei Space Magic</span>
+      <span>★ Laser Tag · VR · Escape Rooms · Gastronomie</span>
+      <span>★ Jetzt online buchen: spacemagic.fun</span>
+      <span>★ Essen · Trinken · Spaß · Alles unter einem Dach</span>
+      <span>★ Kindergeburtstag feiern bei Space Magic</span>
+      <span>★ Laser Tag · VR · Escape Rooms · Gastronomie</span>
+      <span>★ Jetzt online buchen: spacemagic.fun</span>
+      <span>★ Essen · Trinken · Spaß · Alles unter einem Dach</span>
+    </div>
+  </div>
+
+  <div class="hero" id="hero">
+    <div class="loading">Menüs werden geladen...</div>
+  </div>
+
+  <div class="combos-section">
+    <div class="section-header">
+      <div class="section-line"></div>
+      <div class="section-label">Unsere Menüs</div>
+      <div class="section-line" style="background:linear-gradient(270deg, rgba(255,255,255,0.1) 0%, transparent 100%)"></div>
+    </div>
+    <div class="combos-grid" id="combos-grid"></div>
+  </div>
+
+  <div class="party-strip" id="party-strip"></div>
+
+</div>
+
+<script src="menuboard-data.js"></script>
+<script>
+  const MENU_EMOJIS = {
+    'Hamburger Menü': '🍔', 'Cheese Menü': '🧀', 'Chicken Menü': '🐔',
+    'Veggie Menü': '🥬', 'Pizza Menü': '🍕', 'Nugget Menü': '🍗',
+  };
+
+  const FLAT_ICONS = {
+    'Wasser & Apfelschorle Flat': '💧', 'Softdrink Flat': '🥤',
+    'Alkohol Flat': '🍺', 'Cocktail Flat': '🍹', 'Kaffee & Kuchen': '🎂',
+  };
+
+  function renderHero(menuItems) {
+    const highlighted = menuItems.find(m => m['Highlight'] === 'ja') || menuItems[0];
+    if (!highlighted) return;
+
+    document.getElementById('hero').innerHTML = `
+      <div class="hero-left">
+        <div class="hero-badge">⭐ Menü des Tages</div>
+        <div class="hero-title">${highlighted['Produkt'].replace(' Menü', '')}<br>Menü</div>
+        <div class="hero-sub">${highlighted['Beschreibung'] || 'Pommes und Softgetränk'}</div>
+        <div class="hero-price-row">
+          <div class="hero-price">${formatPrice(highlighted['Preis'])}</div>
+        </div>
+      </div>
+      <div class="hero-right">${MENU_EMOJIS[highlighted['Produkt']] || '⭐'}🍟🥤</div>
+    `;
+  }
+
+  function renderCombos(menuItems) {
+    const grid = document.getElementById('combos-grid');
+    const count = menuItems.length;
+    // Dynamisches Grid: 1 Reihe bei <=3, 2 Reihen bei >3
+    const cols = count <= 3 ? count : Math.ceil(count / 2);
+    const rows = count <= 3 ? 1 : 2;
+    grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+    grid.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+
+    grid.innerHTML = menuItems.map(item => {
+      const emoji = MENU_EMOJIS[item['Produkt']] || item['Icon'] || '⭐';
+      return `
+        <div class="combo">
+          <div class="combo-img">${emoji}</div>
+          <div class="combo-info">
+            <div class="combo-name">${item['Produkt']}</div>
+            <div class="combo-desc">${item['Beschreibung'] || ''}</div>
+          </div>
+          <div class="combo-price">${formatPrice(item['Preis'])}</div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function renderFlatrates(flatItems) {
+    const strip = document.getElementById('party-strip');
+    strip.innerHTML = flatItems.map((item, i) => {
+      const icon = FLAT_ICONS[item['Produkt']] || item['Icon'] || '🎉';
+      const divider = i < flatItems.length - 1 ? '<div class="flat-divider"></div>' : '';
+      return `
+        <div class="flat-item">
+          <div class="flat-icon">${icon}</div>
+          <div>
+            <div class="flat-name">${item['Produkt']}</div>
+            <div class="flat-unit">${item['Beschreibung'] || 'pro Person'}</div>
+          </div>
+          <div class="flat-price">${formatPrice(item['Preis'])}</div>
+        </div>
+        ${divider}
+      `;
+    }).join('');
+  }
+
+  async function render() {
+    const data = await fetchMenuData();
+    if (!data) return;
+
+    const essenItems = filterByPage(data, 'Essen');
+    const snacksItems = filterByPage(data, 'Snacks & Süßes');
+    const grouped = groupByCategory(essenItems);
+    const snacksGrouped = groupByCategory(snacksItems);
+
+    renderHero(grouped['Menüs'] || []);
+    renderCombos(grouped['Menüs'] || []);
+    renderFlatrates(snacksGrouped['Party Flatrates'] || []);
+  }
+
+  startAutoRefresh(render);
+</script>
+
+</body>
+</html>

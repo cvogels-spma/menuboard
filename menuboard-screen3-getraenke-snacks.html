@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920">
+<title>Space Magic - Screen 3: Getränke & Snacks</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    font-family: 'Outfit', sans-serif;
+    background: #1a0a2e;
+  }
+
+  body {
+    background:
+      radial-gradient(ellipse 800px 700px at 80% 30%, rgba(0,229,200,0.2) 0%, transparent 60%),
+      radial-gradient(ellipse 800px 600px at 20% 70%, rgba(255,210,53,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse 600px 500px at 50% 50%, rgba(139,92,246,0.08) 0%, transparent 60%),
+      linear-gradient(180deg, #1a0a2e 0%, #0d0620 100%);
+  }
+
+  .screen {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* TOP BANNER */
+  .top-banner {
+    height: 80px;
+    background: linear-gradient(90deg, #00e5c8 0%, #8b5cf6 50%, #ffd235 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+  }
+
+  .banner-text {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1a0a2e;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+  }
+
+  .banner-emoji { font-size: 40px; }
+
+  /* MAIN LAYOUT - 3 Spalten */
+  .content {
+    flex: 1;
+    display: flex;
+    gap: 14px;
+    padding: 16px 20px;
+    overflow: hidden;
+  }
+
+  .col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    min-height: 0;
+  }
+
+  /* FEATURED PRODUCT HIGHLIGHT */
+  .featured {
+    background: rgba(255,255,255,0.06);
+    border-radius: 18px;
+    border: 1px solid rgba(255,210,53,0.2);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .featured::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #ffd235, #ff7b3a);
+  }
+
+  .featured-icon {
+    font-size: 48px;
+    width: 72px;
+    height: 72px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .featured-info { flex: 1; }
+
+  .featured-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #ffd235, #ff7b3a);
+    color: #1a0a2e;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .featured-name {
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+  }
+
+  .featured-price {
+    font-size: 32px;
+    font-weight: 900;
+    color: #ffd235;
+    text-shadow: 0 2px 12px rgba(255,210,53,0.3);
+    flex-shrink: 0;
+  }
+
+  /* SUPER FEATURED (Slush Eis) */
+  .featured.super {
+    border-color: rgba(0,229,200,0.3);
+    background: linear-gradient(135deg, rgba(0,229,200,0.1) 0%, rgba(139,92,246,0.08) 100%);
+    padding: 18px 24px;
+  }
+
+  .featured.super::before {
+    height: 4px;
+    background: linear-gradient(90deg, #00e5c8, #8b5cf6, #ff3d8e);
+  }
+
+  .featured.super .featured-icon {
+    font-size: 64px;
+    width: 88px;
+    height: 88px;
+  }
+
+  .featured.super .featured-badge {
+    background: linear-gradient(135deg, #00e5c8, #8b5cf6);
+    color: #fff;
+    font-size: 11px;
+    padding: 4px 14px;
+  }
+
+  .featured.super .featured-name {
+    font-size: 28px;
+  }
+
+  .featured.super .featured-price {
+    font-size: 40px;
+  }
+
+  /* LIST PANEL */
+  .list-panel {
+    background: rgba(255,255,255,0.05);
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.06);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .list-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .list-head::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 18px; right: 18px;
+    height: 1px;
+    background: rgba(255,255,255,0.06);
+  }
+
+  .list-head-icon {
+    font-size: 24px;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .list-head-title {
+    font-size: 19px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  .list-body {
+    flex: 1;
+    padding: 4px 10px 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  /* LIST ITEM */
+  .li {
+    display: flex;
+    align-items: center;
+    padding: 3px 8px;
+    border-radius: 6px;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .li:nth-child(odd) {
+    background: rgba(255,255,255,0.02);
+  }
+
+  .li-icon {
+    font-size: 17px;
+    width: 24px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .li-name {
+    flex: 1;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .li-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.35);
+    flex-shrink: 0;
+    margin-right: 6px;
+  }
+
+  .li-price {
+    font-size: 20px;
+    font-weight: 800;
+    color: #ffd235;
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+    min-width: 62px;
+    text-align: right;
+  }
+
+  .li.hl {
+    background: linear-gradient(90deg, rgba(255,210,53,0.06) 0%, transparent 100%);
+    border-left: 2px solid #ffd235;
+  }
+
+  /* BOTTOM BAR */
+  .bottombar {
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    background: rgba(13,6,32,0.8);
+  }
+
+  .bottom-text {
+    font-size: 13px;
+    color: rgba(255,255,255,0.35);
+  }
+
+  .bottom-text strong {
+    color: #00e5c8;
+    font-weight: 600;
+  }
+
+  .bottom-tags { display: flex; gap: 10px; }
+
+  .btag {
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+  }
+
+  .btag.pink {
+    background: rgba(255,61,142,0.1);
+    color: #ff3d8e;
+    border: 1px solid rgba(255,61,142,0.15);
+  }
+
+  .btag.teal {
+    background: rgba(0,229,200,0.1);
+    color: #00e5c8;
+    border: 1px solid rgba(0,229,200,0.15);
+  }
+
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    color: rgba(255,255,255,0.3);
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .col { animation: fadeIn 0.4s ease; }
+</style>
+</head>
+<body>
+
+<div class="screen">
+
+  <div class="top-banner">
+    <span class="banner-emoji">🥤</span>
+    <span class="banner-text">Getränke & Snacks</span>
+    <span class="banner-emoji">🍬</span>
+  </div>
+
+  <div class="content" id="content">
+    <div class="loading">Karte wird geladen...</div>
+  </div>
+
+  <div class="bottombar">
+    <div class="bottom-text"><strong>Space Magic</strong> · Fischteichweg 15-17 · 26603 Aurich</div>
+    <div class="bottom-tags">
+      <span class="btag teal">spacemagic.fun</span>
+      <span class="btag pink">Allergene auf Anfrage</span>
+    </div>
+  </div>
+
+</div>
+
+<script src="menuboard-data.js"></script>
+<script>
+  const ACCENT = {
+    'teal': '#00e5c8', 'pink': '#ff3d8e',
+    'yellow': '#ffd235', 'purple': '#8b5cf6', 'orange': '#ff7b3a',
+  };
+
+  // Produkte die als Featured-Karte hervorgehoben werden
+  const FEATURED_PRODUCTS = {
+    'Slush Eis':     { badge: 'Top Seller', superSize: true },
+    'Kaffee Crema':  { badge: 'Beliebt' },
+    'Coca Cola':     { badge: 'Klassiker' },
+  };
+
+  function renderListItem(item) {
+    const isHL = item['Highlight'] === 'ja';
+    const desc = item['Beschreibung'] ? `<span class="li-desc">${item['Beschreibung']}</span>` : '';
+    return `
+      <div class="li${isHL ? ' hl' : ''}">
+        <span class="li-icon">${item['Icon']}</span>
+        <span class="li-name">${item['Produkt']}</span>
+        ${desc}
+        <span class="li-price">${formatPrice(item['Preis'])}</span>
+      </div>
+    `;
+  }
+
+  function renderFeatured(item, config) {
+    const isSuper = config.superSize;
+    const bgColor = isSuper ? 'rgba(0,229,200,0.15)' : 'rgba(255,210,53,0.1)';
+    return `
+      <div class="featured${isSuper ? ' super' : ''}">
+        <div class="featured-icon" style="background:${bgColor}">${item['Icon']}</div>
+        <div class="featured-info">
+          <div class="featured-badge">${config.badge}</div>
+          <div class="featured-name">${item['Produkt']}</div>
+        </div>
+        <div class="featured-price">${formatPrice(item['Preis'])}</div>
+      </div>
+    `;
+  }
+
+  function renderPanel(catName, items, flexVal) {
+    if (!items || items.length === 0) return '';
+    const color = items[0]['Farbe'] || 'teal';
+    const accentColor = ACCENT[color] || '#ffd235';
+    const icon = items[0]['Icon'] || '';
+    const style = flexVal ? ` style="flex:${flexVal}"` : '';
+
+    return `
+      <div class="list-panel"${style}>
+        <div class="list-head">
+          <div class="list-head-icon" style="background:${accentColor}26">${icon}</div>
+          <div class="list-head-title" style="color:${accentColor}">${catName}</div>
+        </div>
+        <div class="list-body">
+          ${items.map(renderListItem).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  async function render() {
+    const data = await fetchMenuData();
+    if (!data) return;
+
+    const drinks = filterByPage(data, 'Getränke');
+    const snacks = filterByPage(data, 'Snacks & Süßes');
+    const dg = groupByCategory(drinks);
+    const sg = groupByCategory(snacks);
+    delete sg['Party Flatrates'];
+
+    const container = document.getElementById('content');
+
+    // Featured-Produkte aus ihren Listen extrahieren
+    function extractFeatured(groups) {
+      const featuredHTML = [];
+      for (const [name, config] of Object.entries(FEATURED_PRODUCTS)) {
+        for (const cat of Object.values(groups)) {
+          const item = cat.find(i => i['Produkt'] === name);
+          if (item) { featuredHTML.push(renderFeatured(item, config)); break; }
+        }
+      }
+      return featuredHTML;
+    }
+
+    const drinksFeatured = extractFeatured(dg);
+
+    // Softdrinks ohne Coca Cola (die ist als Featured)
+    const softdrinksFiltered = (dg['Softdrinks'] || []).filter(i => !FEATURED_PRODUCTS[i['Produkt']]);
+    // Energy ohne Slush Eis
+    const energyAll = [...(dg['Energy'] || []), ...(dg['Specials'] || [])];
+    const energyFiltered = energyAll.filter(i => !FEATURED_PRODUCTS[i['Produkt']]);
+    // Warme Getraenke ohne Kaffee Crema
+    const warmeFiltered = (dg['Warme Getränke'] || []).filter(i => !FEATURED_PRODUCTS[i['Produkt']]);
+
+    // 3-Spalten Layout
+    // Spalte 1: Featured-Highlights + Softdrinks + Energy
+    let col1 = '<div class="col">';
+    // Slush Eis super-featured ganz oben
+    col1 += drinksFeatured.find(h => h.includes('super')) || '';
+    col1 += renderPanel('Softdrinks', softdrinksFiltered, 1);
+    if (energyFiltered.length) col1 += renderPanel('Energy', energyFiltered, 'auto');
+    col1 += '</div>';
+
+    // Spalte 2: Coca Cola + Kaffee Featured + Saefte & Wasser + Warme Getraenke + Alkohol
+    let col2 = '<div class="col">';
+    // Coca Cola + Kaffee Crema featured
+    const smallFeatured = drinksFeatured.filter(h => !h.includes('super'));
+    col2 += smallFeatured.join('');
+    col2 += renderPanel('Säfte & Wasser', dg['Säfte & Wasser'], 1);
+    col2 += renderPanel('Warme Getränke', warmeFiltered, 1);
+    col2 += renderPanel('Alkohol', dg['Alkohol'], 0.5);
+    col2 += '</div>';
+
+    // Spalte 3: Snacks & Suesses
+    let col3 = '<div class="col">';
+    // Donuts + Muffins
+    const donutsMuffins = [
+      ...(sg['Donuts'] || []).map(i => ({...i, Produkt: 'Donut ' + i['Produkt']})),
+      ...(sg['Muffins'] || []).map(i => ({...i, Produkt: 'Muffin ' + i['Produkt']})),
+    ];
+    if (donutsMuffins.length) {
+      const first = sg['Donuts']?.[0] || donutsMuffins[0];
+      const items = donutsMuffins.map(i => ({...i, Icon: i['Icon'] || first['Icon'], Farbe: first['Farbe']}));
+      col3 += renderPanel('Donuts & Muffins', items, 0.6);
+    }
+    col3 += renderPanel('Kuchen', sg['Kuchen'], 0.45);
+    // Schokoriegel + Suessigkeiten
+    const sweetItems = [...(sg['Schokoriegel'] || []), ...(sg['Süßigkeiten'] || [])];
+    if (sweetItems.length) col3 += renderPanel('Schokoriegel & Süßes', sweetItems, 1.2);
+    col3 += renderPanel('Chips & Snacks', sg['Chips & Snacks'], 0.6);
+    col3 += '</div>';
+
+    container.innerHTML = col1 + col2 + col3;
+  }
+
+  startAutoRefresh(render);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920">
+<title>Space Magic - Screen 1: Essen</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    font-family: 'Outfit', sans-serif;
+    background: #1a0a2e;
+  }
+
+  body {
+    background:
+      radial-gradient(ellipse 900px 700px at 20% 30%, rgba(139,92,246,0.25) 0%, transparent 70%),
+      radial-gradient(ellipse 800px 600px at 80% 70%, rgba(255,61,142,0.2) 0%, transparent 70%),
+      radial-gradient(ellipse 600px 500px at 50% 50%, rgba(0,229,200,0.08) 0%, transparent 70%),
+      linear-gradient(180deg, #1a0a2e 0%, #0d0620 100%);
+  }
+
+  .screen {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* TOP BANNER */
+  .top-banner {
+    height: 80px;
+    background: linear-gradient(90deg, #ff3d8e 0%, #8b5cf6 40%, #00e5c8 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding: 0 40px;
+  }
+
+  .banner-text {
+    font-size: 32px;
+    font-weight: 800;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  }
+
+  .banner-emoji { font-size: 40px; }
+
+  /* MAIN: Burger full-width top, 3 cols bottom */
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px 24px;
+  }
+
+  .top-row { flex: 1; display: flex; gap: 16px; }
+  .bottom-row { flex: 1; display: flex; gap: 16px; }
+
+  /* CATEGORY CARD */
+  .cat-card {
+    background: rgba(255,255,255,0.06);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.08);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    backdrop-filter: blur(10px);
+    flex: 1;
+  }
+
+  .cat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    border-radius: 24px 24px 0 0;
+  }
+
+  .cat-card[data-color="teal"]::before   { background: linear-gradient(90deg, #00e5c8, #8b5cf6); }
+  .cat-card[data-color="pink"]::before   { background: linear-gradient(90deg, #ff3d8e, #ff7b3a); }
+  .cat-card[data-color="yellow"]::before { background: linear-gradient(90deg, #ffd235, #ff7b3a); }
+  .cat-card[data-color="purple"]::before { background: linear-gradient(90deg, #8b5cf6, #00e5c8); }
+
+  .cat-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 28px 8px;
+  }
+
+  .cat-icon-wrap {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+  }
+
+  .cat-name {
+    font-size: 28px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .products {
+    flex: 1;
+    display: flex;
+    padding: 8px 16px 16px;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .product {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 8px;
+    border-radius: 16px;
+    position: relative;
+    max-width: 240px;
+  }
+
+  .img-wrap {
+    width: 140px;
+    height: 120px;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .img-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 64px;
+    border-radius: 16px;
+  }
+
+  .prod-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+
+  .prod-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 6px;
+  }
+
+  .prod-price {
+    font-size: 28px;
+    font-weight: 900;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .badge-best {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: linear-gradient(135deg, #ffd235, #ff7b3a);
+    color: #1a0a2e;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 5px 12px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 12px rgba(255,210,53,0.3);
+  }
+
+  /* BOTTOM BAR */
+  .bottombar {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    background: rgba(13,6,32,0.8);
+  }
+
+  .bottom-text {
+    font-size: 14px;
+    color: rgba(255,255,255,0.35);
+  }
+
+  .bottom-text strong {
+    color: #00e5c8;
+    font-weight: 600;
+  }
+
+  .bottom-tag {
+    padding: 5px 14px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    background: rgba(255,210,53,0.1);
+    color: #ffd235;
+    border: 1px solid rgba(255,210,53,0.15);
+  }
+
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: rgba(255,255,255,0.3);
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .content > * { animation: fadeIn 0.4s ease; }
+</style>
+</head>
+<body>
+
+<div class="screen">
+
+  <div class="top-banner">
+    <span class="banner-emoji">🍔</span>
+    <span class="banner-text">Unsere Speisen</span>
+    <span class="banner-emoji">🍕</span>
+  </div>
+
+  <div class="content" id="content">
+    <div class="loading">Speisekarte wird geladen...</div>
+  </div>
+
+  <div class="bottombar">
+    <div class="bottom-text"><strong>Space Magic</strong> · Fischteichweg 15-17 · 26603 Aurich · spacemagic.fun</div>
+    <div class="bottom-tag">Alle Preise inkl. MwSt.</div>
+  </div>
+</div>
+
+<script src="menuboard-data.js"></script>
+<script>
+  const CAT_COLORS = {
+    'Burger': 'teal', 'Pizza': 'pink',
+    'Würstchen': 'yellow', 'Fingerfood': 'purple',
+  };
+
+  const ACCENT_COLORS = {
+    'teal': '#00e5c8', 'pink': '#ff3d8e',
+    'yellow': '#ffd235', 'purple': '#8b5cf6', 'orange': '#ff7b3a',
+  };
+
+  function renderProduct(item, color) {
+    const accentColor = ACCENT_COLORS[color] || '#ffd235';
+    const isHighlight = item['Highlight'] === 'ja';
+    const icon = PRODUCT_ICONS[item['Produkt']] || item['Icon'] || '';
+    return `
+      <div class="product">
+        ${isHighlight ? '<div class="badge-best">Beliebt</div>' : ''}
+        <div class="img-wrap"><div class="img-placeholder" style="background:radial-gradient(circle,${accentColor}26 0%,${accentColor}08 100%)">${icon}</div></div>
+        <div class="prod-name">${item['Produkt']}</div>
+        ${item['Beschreibung'] ? `<div class="prod-desc">${item['Beschreibung']}</div>` : ''}
+        <div class="prod-price" style="color:${accentColor}">${formatPrice(item['Preis'])}</div>
+      </div>
+    `;
+  }
+
+  function renderCategory(catName, items, color) {
+    const accentColor = ACCENT_COLORS[color] || '#ffd235';
+    const icon = items[0]?.['Icon'] || '';
+    return `
+      <div class="cat-card" data-color="${color}">
+        <div class="cat-header">
+          <div class="cat-icon-wrap" style="background:${accentColor}33">${icon}</div>
+          <div class="cat-name" style="color:${accentColor}">${catName}</div>
+        </div>
+        <div class="products">
+          ${items.map(item => renderProduct(item, color)).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  async function render() {
+    const data = await fetchMenuData();
+    if (!data) return;
+
+    const essenItems = filterByPage(data, 'Essen');
+    const grouped = groupByCategory(essenItems);
+    const container = document.getElementById('content');
+
+    // Layout: Burger + Pizza oben, Wuerstchen + Fingerfood unten
+    let html = '<div class="top-row">';
+    if (grouped['Burger']) html += renderCategory('Burger', grouped['Burger'], 'teal');
+    if (grouped['Pizza']) html += renderCategory('Pizza', grouped['Pizza'], 'pink');
+    html += '</div><div class="bottom-row">';
+    if (grouped['Würstchen']) html += renderCategory('Würstchen', grouped['Würstchen'], 'yellow');
+    if (grouped['Fingerfood']) html += renderCategory('Fingerfood', grouped['Fingerfood'], 'purple');
+    html += '</div>';
+
+    container.innerHTML = html;
+  }
+
+  startAutoRefresh(render);
+</script>
+
+</body>
+</html>
