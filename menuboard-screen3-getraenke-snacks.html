@@ -45,7 +45,7 @@
   }
 
   .banner-text {
-    font-size: 32px;
+    font-size: 36px;
     font-weight: 800;
     color: #1a0a2e;
     text-transform: uppercase;
@@ -110,7 +110,7 @@
     display: inline-block;
     background: linear-gradient(135deg, #ffd235, #ff7b3a);
     color: #1a0a2e;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 800;
     padding: 3px 10px;
     border-radius: 100px;
@@ -120,7 +120,7 @@
   }
 
   .featured-name {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 800;
     color: #fff;
   }
@@ -154,12 +154,12 @@
   .featured.super .featured-badge {
     background: linear-gradient(135deg, #00e5c8, #8b5cf6);
     color: #fff;
-    font-size: 11px;
+    font-size: 12px;
     padding: 3px 12px;
   }
 
   .featured.super .featured-name {
-    font-size: 24px;
+    font-size: 26px;
   }
 
   .featured.super .featured-price {
@@ -206,7 +206,7 @@
   }
 
   .list-head-title {
-    font-size: 19px;
+    font-size: 21px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 1.5px;
@@ -237,7 +237,7 @@
   }
 
   .li-icon {
-    font-size: 17px;
+    font-size: 19px;
     width: 24px;
     text-align: center;
     flex-shrink: 0;
@@ -245,7 +245,7 @@
 
   .li-name {
     flex: 1;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
     color: #fff;
     white-space: nowrap;
@@ -254,14 +254,14 @@
   }
 
   .li-desc {
-    font-size: 13px;
+    font-size: 14px;
     color: rgba(255,255,255,0.35);
     flex-shrink: 0;
     margin-right: 6px;
   }
 
   .li-price {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 800;
     color: #ffd235;
     flex-shrink: 0;
@@ -287,7 +287,7 @@
   }
 
   .bottom-text {
-    font-size: 13px;
+    font-size: 15px;
     color: rgba(255,255,255,0.35);
   }
 
@@ -301,7 +301,7 @@
   .btag {
     padding: 4px 12px;
     border-radius: 100px;
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.8px;
     text-transform: uppercase;
@@ -573,7 +573,7 @@
       }
     }
     col1 += renderPanel('Softdrinks', softdrinksFiltered, 'none');
-    if (energyFiltered.length) col1 += renderPanel('Energy', energyFiltered, 'none');
+    if (energyFiltered.length) col1 += renderPanel('Energy', energyFiltered, 1);
     col1 += '</div>';
 
     // Spalte 2: Saefte & Wasser + Warme Getraenke + Alkohol
