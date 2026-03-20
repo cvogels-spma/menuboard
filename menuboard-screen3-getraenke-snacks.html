@@ -190,9 +190,11 @@
     content: '';
     position: absolute;
     bottom: 0;
-    left: 18px; right: 18px;
-    height: 1px;
-    background: rgba(255,255,255,0.06);
+    left: 0; right: 0;
+    height: 3px;
+    background: var(--cat-color, rgba(255,255,255,0.1));
+    opacity: 0.5;
+    border-radius: 2px;
   }
 
   .list-head-icon {
@@ -237,20 +239,26 @@
   }
 
   .li-icon {
-    font-size: 21px;
-    width: 24px;
-    text-align: center;
-    flex-shrink: 0;
+    display: none;
   }
 
   .li-name {
-    flex: 1;
     font-size: 22px;
     font-weight: 600;
     color: #fff;
     white-space: nowrap;
+    flex-shrink: 1;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .li-dots {
+    flex: 1;
+    border-bottom: 2px dotted rgba(255,255,255,0.12);
+    min-width: 12px;
+    margin: 0 6px;
+    align-self: flex-end;
+    margin-bottom: 5px;
   }
 
   .li-desc {
@@ -479,9 +487,9 @@
     const volHTML = volume ? `<span class="li-desc">${volume}</span>` : '';
     return `
       <div class="li${isHL ? ' hl' : ''}">
-        <span class="li-icon">${item['Icon']}</span>
         <span class="li-name">${item['Produkt']}</span>
         ${badgeHTML}${desc}${volHTML}
+        <span class="li-dots"></span>
         <span class="li-price">${formatPrice(item['Preis'])}</span>
       </div>
     `;
@@ -559,10 +567,10 @@
     const color = items[0]['Farbe'] || 'teal';
     const accentColor = ACCENT[color] || '#ffd235';
     const icon = items[0]['Icon'] || '';
-    const style = flexVal ? ` style="flex:${flexVal}"` : '';
+    const flexStyle = flexVal ? `flex:${flexVal};` : '';
 
     return `
-      <div class="list-panel"${style}>
+      <div class="list-panel" style="${flexStyle}--cat-color:${accentColor}">
         <div class="list-head">
           <div class="list-head-icon" style="background:${accentColor}26">${icon}</div>
           <div class="list-head-title" style="color:${accentColor}">${catName}</div>
