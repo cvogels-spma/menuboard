@@ -66,7 +66,7 @@
   .col {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 6px;
     flex: 1;
     min-height: 0;
   }
@@ -74,12 +74,12 @@
   /* FEATURED PRODUCT HIGHLIGHT */
   .featured {
     background: rgba(255,255,255,0.06);
-    border-radius: 18px;
+    border-radius: 14px;
     border: 1px solid rgba(255,210,53,0.2);
-    padding: 14px 20px;
+    padding: 8px 16px;
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
     flex-shrink: 0;
     position: relative;
     overflow: hidden;
@@ -94,10 +94,10 @@
   }
 
   .featured-icon {
-    font-size: 48px;
-    width: 72px;
-    height: 72px;
-    border-radius: 16px;
+    font-size: 36px;
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -120,13 +120,13 @@
   }
 
   .featured-name {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 800;
     color: #fff;
   }
 
   .featured-price {
-    font-size: 32px;
+    font-size: 26px;
     font-weight: 900;
     color: #ffd235;
     text-shadow: 0 2px 12px rgba(255,210,53,0.3);
@@ -137,7 +137,7 @@
   .featured.super {
     border-color: rgba(0,229,200,0.3);
     background: linear-gradient(135deg, rgba(0,229,200,0.1) 0%, rgba(139,92,246,0.08) 100%);
-    padding: 18px 24px;
+    padding: 10px 18px;
   }
 
   .featured.super::before {
@@ -146,24 +146,24 @@
   }
 
   .featured.super .featured-icon {
-    font-size: 64px;
-    width: 88px;
-    height: 88px;
+    font-size: 44px;
+    width: 64px;
+    height: 64px;
   }
 
   .featured.super .featured-badge {
     background: linear-gradient(135deg, #00e5c8, #8b5cf6);
     color: #fff;
-    font-size: 11px;
-    padding: 4px 14px;
+    font-size: 10px;
+    padding: 3px 12px;
   }
 
   .featured.super .featured-name {
-    font-size: 28px;
+    font-size: 22px;
   }
 
   .featured.super .featured-price {
-    font-size: 40px;
+    font-size: 32px;
   }
 
   /* LIST PANEL */
@@ -180,8 +180,8 @@
   .list-head {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 10px 18px;
+    gap: 8px;
+    padding: 6px 14px;
     position: relative;
     flex-shrink: 0;
   }
@@ -226,7 +226,7 @@
   .li {
     display: flex;
     align-items: center;
-    padding: 3px 8px;
+    padding: 2px 8px;
     border-radius: 6px;
     gap: 6px;
     flex-shrink: 0;
@@ -382,6 +382,10 @@
     animation: floatIcon 3s ease-in-out infinite;
   }
 
+  .featured .featured-icon {
+    filter: drop-shadow(0 0 6px rgba(255,255,255,0.15));
+  }
+
   .featured.super .featured-icon {
     filter: drop-shadow(0 0 6px rgba(0,229,200,0.4)) drop-shadow(0 0 12px rgba(139,92,246,0.2));
   }
@@ -442,24 +446,55 @@
     `;
   }
 
-  const SLUSHIE_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" style="width:100%;height:100%">
-    <line x1="14.5" y1="1" x2="12.5" y2="8.5" stroke="#ff3d8e" stroke-width="1.8"/>
-    <path d="M6.5 9.5 Q6.5 5.5 12 5.5 Q17.5 5.5 17.5 9.5" stroke="url(#slushDome)" stroke-width="1.8" fill="rgba(0,229,200,0.15)"/>
-    <rect x="6" y="9.5" width="12" height="1.5" rx="0.5" stroke="url(#slushDome)" stroke-width="1.2" fill="rgba(139,92,246,0.25)"/>
-    <path d="M6.5 11 L8.5 22 h7 L17.5 11" stroke="url(#slushCup)" stroke-width="1.8" fill="rgba(0,229,200,0.08)"/>
-    <path d="M9 15.5 Q12 13.5 15 15.5" stroke="#8b5cf6" stroke-width="1.2" fill="none" opacity="0.7"/>
-    <path d="M9.5 18.5 Q12 16.5 14.5 18.5" stroke="#ff3d8e" stroke-width="1.2" fill="none" opacity="0.5"/>
-    <defs>
-      <linearGradient id="slushDome" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#00e5c8"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient>
-      <linearGradient id="slushCup" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00e5c8"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient>
-    </defs>
-  </svg>`;
+  // Custom SVG Icons fuer Featured-Produkte
+  const FEATURED_SVGS = {
+    'Slush Eis': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" style="width:100%;height:100%">
+      <line x1="14.5" y1="1" x2="12.5" y2="8.5" stroke="#ff3d8e" stroke-width="1.8"/>
+      <path d="M6.5 9.5 Q6.5 5.5 12 5.5 Q17.5 5.5 17.5 9.5" stroke="url(#slushDome)" stroke-width="1.8" fill="rgba(0,229,200,0.15)"/>
+      <rect x="6" y="9.5" width="12" height="1.5" rx="0.5" stroke="url(#slushDome)" stroke-width="1.2" fill="rgba(139,92,246,0.25)"/>
+      <path d="M6.5 11 L8.5 22 h7 L17.5 11" stroke="url(#slushCup)" stroke-width="1.8" fill="rgba(0,229,200,0.08)"/>
+      <path d="M9 15.5 Q12 13.5 15 15.5" stroke="#8b5cf6" stroke-width="1.2" fill="none" opacity="0.7"/>
+      <path d="M9.5 18.5 Q12 16.5 14.5 18.5" stroke="#ff3d8e" stroke-width="1.2" fill="none" opacity="0.5"/>
+      <defs>
+        <linearGradient id="slushDome" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#00e5c8"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient>
+        <linearGradient id="slushCup" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00e5c8"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient>
+      </defs>
+    </svg>`,
+
+    'Kaffee Crema': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" style="width:100%;height:100%">
+      <path d="M6 9c.8-1.2 2.8-2 5-2s4 .8 5 2" stroke="#ff7b3a" stroke-width="1.2" opacity="0.5"/>
+      <path d="M7.5 7c.6-.8 1.8-1.5 3.5-1.5" stroke="#ff7b3a" stroke-width="1" opacity="0.35"/>
+      <path d="M5 10h12v1c0 0-.5 0-1 0H6c-.5 0-1 0-1 0v-1z" stroke="url(#coffeeRim)" stroke-width="1.5" fill="rgba(255,123,58,0.2)"/>
+      <path d="M5 11 L6.5 21 h9 L17 11" stroke="url(#coffeeCup)" stroke-width="1.8" fill="rgba(139,92,246,0.08)"/>
+      <path d="M17 13 Q20 13 20 15.5 Q20 18 17 18" stroke="#8b5cf6" stroke-width="1.5" fill="none"/>
+      <ellipse cx="11.5" cy="12.5" rx="4.5" ry="1.5" fill="rgba(255,123,58,0.25)" stroke="none"/>
+      <path d="M8.5 16 Q11 14.5 14 16" stroke="rgba(255,255,255,0.15)" stroke-width="1" fill="none"/>
+      <defs>
+        <linearGradient id="coffeeRim" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#ff7b3a"/><stop offset="100%" stop-color="#ffd235"/></linearGradient>
+        <linearGradient id="coffeeCup" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff7b3a"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient>
+      </defs>
+    </svg>`,
+
+    'Coca Cola': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" style="width:100%;height:100%">
+      <path d="M8 4 Q8 2 10 2 h4 Q16 2 16 4" stroke="#ff3d8e" stroke-width="1.5" fill="none"/>
+      <rect x="7" y="4" width="10" height="18" rx="2.5" stroke="url(#colaCan)" stroke-width="1.8" fill="rgba(255,61,142,0.06)"/>
+      <path d="M7 7.5 h10" stroke="#ff3d8e" stroke-width="1" opacity="0.4"/>
+      <path d="M7 9 h10" stroke="#ff3d8e" stroke-width="0.6" opacity="0.25"/>
+      <rect x="8.2" y="10.5" width="7.6" height="6" rx="1.2" stroke="#ff3d8e" stroke-width="1.2" fill="rgba(255,61,142,0.15)"/>
+      <path d="M9.5 13 Q10.5 11.8 12 13 Q13.5 14.2 14.5 13" stroke="#fff" stroke-width="1" fill="none" opacity="0.7"/>
+      <path d="M7 18.5 h10" stroke="#ff3d8e" stroke-width="0.6" opacity="0.25"/>
+      <ellipse cx="12" cy="4" rx="3" ry="0.8" stroke="#ff3d8e" stroke-width="0.8" fill="rgba(255,61,142,0.1)"/>
+      <defs>
+        <linearGradient id="colaCan" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff3d8e"/><stop offset="50%" stop-color="#cc0033"/><stop offset="100%" stop-color="#ff3d8e"/></linearGradient>
+      </defs>
+    </svg>`,
+  };
 
   function renderFeatured(item, config) {
     const isSuper = config.superSize;
     const bgColor = isSuper ? 'rgba(0,229,200,0.15)' : 'rgba(255,210,53,0.1)';
     const icon = PRODUCT_ICONS[item['Produkt']] || item['Icon'];
-    const iconContent = (item['Produkt'] === 'Slush Eis') ? SLUSHIE_SVG : icon;
+    const iconContent = FEATURED_SVGS[item['Produkt']] || icon;
     return `
       <div class="featured${isSuper ? ' super' : ''}">
         <div class="featured-icon" style="background:${bgColor}">${iconContent}</div>
@@ -527,22 +562,25 @@
     const warmeFiltered = (dg['Warme Getränke'] || []).filter(i => !FEATURED_PRODUCTS[i['Produkt']]);
 
     // 3-Spalten Layout
-    // Spalte 1: Featured-Highlights + Softdrinks + Energy
+    // Spalte 1: 3 Featured + Softdrinks + Energy
     let col1 = '<div class="col">';
-    // Slush Eis super-featured ganz oben
-    col1 += drinksFeatured.find(h => h.includes('super')) || '';
+    const featuredOrder = ['Slush Eis', 'Kaffee Crema', 'Coca Cola'];
+    for (const name of featuredOrder) {
+      const config = FEATURED_PRODUCTS[name];
+      for (const cat of Object.values(dg)) {
+        const item = cat.find(i => i['Produkt'] === name);
+        if (item) { col1 += renderFeatured(item, config); break; }
+      }
+    }
     col1 += renderPanel('Softdrinks', softdrinksFiltered, 1);
     if (energyFiltered.length) col1 += renderPanel('Energy', energyFiltered, 'auto');
     col1 += '</div>';
 
-    // Spalte 2: Coca Cola + Kaffee Featured + Saefte & Wasser + Warme Getraenke + Alkohol
+    // Spalte 2: Saefte & Wasser + Warme Getraenke + Alkohol
     let col2 = '<div class="col">';
-    // Coca Cola + Kaffee Crema featured
-    const smallFeatured = drinksFeatured.filter(h => !h.includes('super'));
-    col2 += smallFeatured.join('');
     col2 += renderPanel('Säfte & Wasser', dg['Säfte & Wasser'], 1);
     col2 += renderPanel('Warme Getränke', warmeFiltered, 1);
-    col2 += renderPanel('Alkohol', dg['Alkohol'], 0.5);
+    col2 += renderPanel('Alkohol', dg['Alkohol'], 0.4);
     col2 += '</div>';
 
     // Spalte 3: Snacks & Suesses - nur 2 Panels fuer weniger Overflow
