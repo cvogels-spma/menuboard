@@ -56,21 +56,19 @@
 
   .banner-emoji { font-size: 40px; }
 
-  /* MAIN: Burger full-width top, 3 cols bottom */
+  /* MAIN GRID - 2x2 */
   .content {
     flex: 1;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    grid-template-rows: 1fr 1fr;
     gap: 16px;
     padding: 20px 24px;
   }
 
-  .top-row { flex: 1; display: flex; gap: 16px; }
-  .bottom-row { flex: 1; display: flex; gap: 16px; }
-
   /* CATEGORY CARD */
   .cat-card {
-    background: rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.05);
     border-radius: 24px;
     border: 1px solid rgba(255,255,255,0.08);
     overflow: hidden;
@@ -78,7 +76,6 @@
     flex-direction: column;
     position: relative;
     backdrop-filter: blur(10px);
-    flex: 1;
   }
 
   .cat-card::before {
@@ -98,7 +95,8 @@
     display: flex;
     align-items: center;
     gap: 14px;
-    padding: 16px 28px 8px;
+    padding: 18px 28px 10px;
+    flex-shrink: 0;
   }
 
   .cat-icon-wrap {
@@ -112,88 +110,82 @@
   }
 
   .cat-name {
-    font-size: 28px;
+    font-size: 30px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 2px;
   }
 
+  /* Produkt-Zeilen (Listenformat) */
   .products {
     flex: 1;
     display: flex;
-    padding: 8px 16px 16px;
-    gap: 8px;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .product {
-    flex: 1;
-    display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 8px;
-    border-radius: 16px;
-    position: relative;
-    max-width: 240px;
+    padding: 4px 20px 16px;
+    gap: 4px;
+    justify-content: center;
   }
 
-  .img-wrap {
-    width: 140px;
-    height: 120px;
-    border-radius: 16px;
-    overflow: hidden;
-    margin-bottom: 10px;
+  .product-row {
     display: flex;
     align-items: center;
-    justify-content: center;
+    padding: 10px 16px;
+    border-radius: 14px;
+    gap: 16px;
+    position: relative;
+  }
+
+  .product-row:nth-child(odd) {
+    background: rgba(255,255,255,0.03);
+  }
+
+  .product-row.highlight {
+    background: linear-gradient(90deg, rgba(255,210,53,0.08) 0%, transparent 100%);
+    border-left: 3px solid #ffd235;
+  }
+
+  .product-row .p-icon {
+    font-size: 36px;
+    width: 52px;
+    text-align: center;
     flex-shrink: 0;
   }
 
-  .img-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 64px;
-    border-radius: 16px;
-  }
-
-  .prod-name {
-    font-size: 20px;
+  .product-row .p-name {
+    flex: 1;
+    font-size: 26px;
     font-weight: 700;
     color: #fff;
-    margin-bottom: 4px;
-    line-height: 1.2;
   }
 
-  .prod-desc {
-    font-size: 13px;
+  .product-row .p-desc {
+    font-size: 16px;
     color: rgba(255,255,255,0.4);
-    margin-bottom: 6px;
+    flex-shrink: 0;
+    margin-right: 12px;
   }
 
-  .prod-price {
-    font-size: 28px;
+  .product-row .p-price {
+    font-size: 32px;
     font-weight: 900;
     font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+    min-width: 100px;
+    text-align: right;
   }
 
-  .badge-best {
+  .product-row .p-badge {
     position: absolute;
-    top: 4px;
-    right: 4px;
+    top: 6px;
+    right: 12px;
     background: linear-gradient(135deg, #ffd235, #ff7b3a);
     color: #1a0a2e;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 800;
-    padding: 5px 12px;
+    padding: 3px 10px;
     border-radius: 100px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    box-shadow: 0 2px 12px rgba(255,210,53,0.3);
   }
 
   /* BOTTOM BAR */
@@ -237,10 +229,12 @@
     color: rgba(255,255,255,0.3);
     font-size: 20px;
     letter-spacing: 2px;
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
   }
 
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-  .content > * { animation: fadeIn 0.4s ease; }
+  .cat-card { animation: fadeIn 0.4s ease; }
 </style>
 </head>
 <body>
@@ -265,27 +259,27 @@
 
 <script src="menuboard-data.js"></script>
 <script>
-  const CAT_COLORS = {
-    'Burger': 'teal', 'Pizza': 'pink',
-    'Würstchen': 'yellow', 'Fingerfood': 'purple',
-  };
-
   const ACCENT_COLORS = {
     'teal': '#00e5c8', 'pink': '#ff3d8e',
     'yellow': '#ffd235', 'purple': '#8b5cf6', 'orange': '#ff7b3a',
   };
 
-  function renderProduct(item, color) {
-    const accentColor = ACCENT_COLORS[color] || '#ffd235';
+  const CAT_COLORS = {
+    'Burger': 'teal', 'Pizza': 'pink',
+    'Würstchen': 'yellow', 'Fingerfood': 'purple',
+  };
+
+  function renderProduct(item, accentColor) {
     const isHighlight = item['Highlight'] === 'ja';
     const icon = PRODUCT_ICONS[item['Produkt']] || item['Icon'] || '';
+    const desc = item['Beschreibung'] ? `<span class="p-desc">${item['Beschreibung']}</span>` : '';
     return `
-      <div class="product">
-        ${isHighlight ? '<div class="badge-best">Beliebt</div>' : ''}
-        <div class="img-wrap"><div class="img-placeholder" style="background:radial-gradient(circle,${accentColor}26 0%,${accentColor}08 100%)">${icon}</div></div>
-        <div class="prod-name">${item['Produkt']}</div>
-        ${item['Beschreibung'] ? `<div class="prod-desc">${item['Beschreibung']}</div>` : ''}
-        <div class="prod-price" style="color:${accentColor}">${formatPrice(item['Preis'])}</div>
+      <div class="product-row${isHighlight ? ' highlight' : ''}">
+        <span class="p-icon">${icon}</span>
+        <span class="p-name">${item['Produkt']}</span>
+        ${desc}
+        <span class="p-price" style="color:${accentColor}">${formatPrice(item['Preis'])}</span>
+        ${isHighlight ? '<span class="p-badge">Beliebt</span>' : ''}
       </div>
     `;
   }
@@ -300,7 +294,7 @@
           <div class="cat-name" style="color:${accentColor}">${catName}</div>
         </div>
         <div class="products">
-          ${items.map(item => renderProduct(item, color)).join('')}
+          ${items.map(item => renderProduct(item, accentColor)).join('')}
         </div>
       </div>
     `;
@@ -313,16 +307,14 @@
     const essenItems = filterByPage(data, 'Essen');
     const grouped = groupByCategory(essenItems);
     const container = document.getElementById('content');
+    const cats = ['Burger', 'Pizza', 'Würstchen', 'Fingerfood'];
 
-    // Layout: Burger + Pizza oben, Wuerstchen + Fingerfood unten
-    let html = '<div class="top-row">';
-    if (grouped['Burger']) html += renderCategory('Burger', grouped['Burger'], 'teal');
-    if (grouped['Pizza']) html += renderCategory('Pizza', grouped['Pizza'], 'pink');
-    html += '</div><div class="bottom-row">';
-    if (grouped['Würstchen']) html += renderCategory('Würstchen', grouped['Würstchen'], 'yellow');
-    if (grouped['Fingerfood']) html += renderCategory('Fingerfood', grouped['Fingerfood'], 'purple');
-    html += '</div>';
-
+    let html = '';
+    for (const cat of cats) {
+      if (grouped[cat]) {
+        html += renderCategory(cat, grouped[cat], CAT_COLORS[cat] || 'teal');
+      }
+    }
     container.innerHTML = html;
   }
 
