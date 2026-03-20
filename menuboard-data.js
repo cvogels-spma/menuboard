@@ -147,7 +147,7 @@ function groupByCategory(items) {
 function formatPrice(price) {
   const num = parseFloat(price);
   if (isNaN(num)) return price;
-  return num.toFixed(2).replace('.', ',') + ' \u20AC';
+  return num.toFixed(2).replace('.', ',');
 }
 
 /**
