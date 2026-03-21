@@ -81,6 +81,7 @@
     align-items: center;
     gap: 36px;
     flex: 1;
+    position: relative;
   }
 
   .hero-deal-icon {
@@ -425,8 +426,183 @@
     letter-spacing: 2px;
   }
 
+  /* ANIMATIONS */
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   .combo, .flat-item { animation: fadeIn 0.4s ease; }
+
+  /* Deal des Tages - Badge Shimmer */
+  @keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  .hero-badge {
+    background: linear-gradient(90deg, #ffd235 0%, #ff7b3a 25%, #fff 50%, #ff7b3a 75%, #ffd235 100%);
+    background-size: 200% 100%;
+    animation: shimmer 3s ease-in-out infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    /* Reset: we need visible bg for badge */
+    -webkit-text-fill-color: #1a0a2e;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+  }
+
+  /* Deal Icon - Glow Pulse */
+  @keyframes glowPulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(255,123,58,0.15), 0 0 40px rgba(255,123,58,0.05); }
+    50% { box-shadow: 0 0 30px rgba(255,123,58,0.3), 0 0 60px rgba(255,123,58,0.1); }
+  }
+
+  .hero-deal-icon {
+    animation: glowPulse 3s ease-in-out infinite;
+  }
+
+  /* Deal Price - Subtle Pulse */
+  @keyframes pricePulse {
+    0%, 100% { transform: scale(1); text-shadow: 0 4px 24px rgba(255,210,53,0.3); }
+    50% { transform: scale(1.03); text-shadow: 0 4px 32px rgba(255,210,53,0.5); }
+  }
+
+  .hero-deal-price {
+    animation: pricePulse 2.5s ease-in-out infinite;
+    display: inline-block;
+  }
+
+  /* Combo Cards - Staggered Slide Up */
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .combo {
+    animation: slideUp 0.5s ease both;
+  }
+  .combo:nth-child(1) { animation-delay: 0.05s; }
+  .combo:nth-child(2) { animation-delay: 0.1s; }
+  .combo:nth-child(3) { animation-delay: 0.15s; }
+  .combo:nth-child(4) { animation-delay: 0.2s; }
+  .combo:nth-child(5) { animation-delay: 0.25s; }
+  .combo:nth-child(6) { animation-delay: 0.3s; }
+
+  /* Combo Price - Subtle glow on color bar side */
+  .combo::after {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 80px;
+    pointer-events: none;
+    opacity: 0.08;
+  }
+  .combo:nth-child(1)::after { background: linear-gradient(90deg, #ff7b3a, transparent); }
+  .combo:nth-child(2)::after { background: linear-gradient(90deg, #ff3d8e, transparent); }
+  .combo:nth-child(3)::after { background: linear-gradient(90deg, #00e5c8, transparent); }
+  .combo:nth-child(4)::after { background: linear-gradient(90deg, #ffd235, transparent); }
+  .combo:nth-child(5)::after { background: linear-gradient(90deg, #8b5cf6, transparent); }
+  .combo:nth-child(6)::after { background: linear-gradient(90deg, #ff7b3a, transparent); }
+
+  /* Hero Deal - Entrance animation */
+  @keyframes dealReveal {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .hero-deal {
+    animation: dealReveal 0.8s ease both;
+  }
+
+  /* Sparkle particles around deal */
+  .deal-sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ffd235;
+    pointer-events: none;
+    animation: sparkleFloat 4s ease-in-out infinite;
+  }
+
+  @keyframes sparkleFloat {
+    0%, 100% { opacity: 0; transform: translateY(0) scale(0.5); }
+    20% { opacity: 0.8; transform: translateY(-10px) scale(1); }
+    80% { opacity: 0.3; transform: translateY(-25px) scale(0.7); }
+  }
+
+  /* Middle hero section - Combo Visual */
+  .hero-center {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    animation: fadeIn 1s ease 0.5s both;
+  }
+
+  .hero-includes {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .hero-include-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    animation: floatInclude 3s ease-in-out infinite;
+  }
+
+  .hero-include-item:nth-child(1) { animation-delay: 0s; }
+  .hero-include-item:nth-child(2) { animation-delay: 0.3s; }
+  .hero-include-item:nth-child(3) { animation-delay: 0.6s; }
+
+  @keyframes floatInclude {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  .hero-include-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .hero-include-icon svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .hero-include-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.35);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .hero-plus {
+    font-size: 28px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.15);
+    margin: 0 4px;
+    align-self: center;
+    margin-bottom: 20px;
+  }
+
+  .hero-center-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.25);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+  }
 </style>
 </head>
 <body>
@@ -450,6 +626,43 @@
     <div class="hero-stars" id="hero-stars"></div>
     <div class="hero-deal" id="hero-deal">
       <div class="loading">Menüs werden geladen...</div>
+    </div>
+    <div class="hero-center" id="hero-center">
+      <div class="hero-center-label">Jedes Menü enthält</div>
+      <div class="hero-includes">
+        <div class="hero-include-item">
+          <div class="hero-include-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ff7b3a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4.5 11C4.5 7 7.5 4 12 4s7.5 3 7.5 7"/>
+              <path d="M3.5 11h17"/>
+              <path d="M4 13.5c1.2.8 2.5 1 4 .5s2.5-1 4-.5 2.5 1 4 .5 2.8-.3 4-.5" stroke="#00e5c8"/>
+              <path d="M4 17.5h16c0 0 0 1.5-1.5 2.5-.8.5-2 .5-2.5.5h-8c-.5 0-1.7 0-2.5-.5C4 19.5 4 17.5 4 17.5z"/>
+            </svg>
+          </div>
+          <div class="hero-include-label">Burger</div>
+        </div>
+        <div class="hero-plus">+</div>
+        <div class="hero-include-item">
+          <div class="hero-include-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ffd235" stroke-width="2" stroke-linecap="round">
+              <path d="M7 3v8M10 2v9M13 3v8M16 2v9"/>
+              <path d="M5 11h14l-2 10H7z" stroke="#ff7b3a"/>
+            </svg>
+          </div>
+          <div class="hero-include-label">Pommes</div>
+        </div>
+        <div class="hero-plus">+</div>
+        <div class="hero-include-item">
+          <div class="hero-include-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#00e5c8" stroke-width="2" stroke-linecap="round">
+              <path d="M8 2h8l-1.5 20h-5z"/>
+              <path d="M6.5 8h11" opacity="0.5"/>
+              <line x1="12" y1="2" x2="17" y2="0" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div class="hero-include-label">Softdrink</div>
+        </div>
+      </div>
     </div>
     <div class="hero-logo">
       <img src="https://spacemagic.fun/fileadmin/logo.svg" alt="Space Magic Logo">
@@ -588,14 +801,29 @@
 
     const svg = getMenuSVG(highlighted['Produkt']);
     const heroEl = document.getElementById('hero-deal');
+
+    // Sparkle particles
+    let sparkles = '';
+    for (let i = 0; i < 6; i++) {
+      const x = 20 + Math.random() * 60;
+      const y = 10 + Math.random() * 80;
+      const delay = Math.random() * 4;
+      const size = 2 + Math.random() * 3;
+      const colors = ['#ffd235', '#ff7b3a', '#00e5c8', '#ff3d8e'];
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      sparkles += `<div class="deal-sparkle" style="left:${x}%;top:${y}%;width:${size}px;height:${size}px;background:${color};animation-delay:${delay}s"></div>`;
+    }
+
     heroEl.innerHTML = `
+      ${sparkles}
       ${svg ? `<div class="hero-deal-icon">${svg}</div>` : ''}
       <div class="hero-deal-text">
-        <div class="hero-badge">Deal des Tages</div>
+        <div class="hero-badge">⭐ Deal des Tages</div>
         <div class="hero-deal-title">${highlighted['Produkt']}</div>
         <div class="hero-deal-sub">${highlighted['Beschreibung'] || 'Burger, Pommes und Softgetränk'}</div>
         <div class="hero-deal-price-row">
           <div class="hero-deal-price">${formatPrice(highlighted['Preis'])}</div>
+          <div class="hero-deal-save">Unser Tipp!</div>
         </div>
       </div>
     `;
