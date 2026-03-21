@@ -36,7 +36,7 @@
 
   /* ANIMATED TOP STRIP */
   .promo-strip {
-    height: 80px;
+    height: 64px;
     background: linear-gradient(90deg, #ff3d8e 0%, #8b5cf6 30%, #00e5c8 60%, #ffd235 100%);
     display: flex;
     align-items: center;
@@ -194,7 +194,7 @@
 
   @keyframes floatLogo {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
+    50% { transform: translateY(-3px); }
   }
 
   /* Decorative stars */
@@ -215,13 +215,13 @@
   }
 
   @keyframes twinkle {
-    0%, 100% { opacity: 0.1; }
-    50% { opacity: 0.6; }
+    0%, 100% { opacity: 0.05; }
+    50% { opacity: 0.25; }
   }
 
   /* BOTTOM BAR */
   .bottombar {
-    height: 48px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -274,7 +274,7 @@
   }
 
   .section-label {
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 3px;
@@ -316,17 +316,17 @@
   .combo:nth-child(6)::before { background: linear-gradient(180deg, #ff7b3a, #ff3d8e); }
 
   .combo-number {
-    font-size: 32px;
+    font-size: 38px;
     font-weight: 900;
     color: rgba(255,255,255,0.25);
     flex-shrink: 0;
-    width: 40px;
+    width: 44px;
     text-align: center;
   }
 
   .combo-img {
-    width: 56px;
-    height: 56px;
+    width: 64px;
+    height: 64px;
     border-radius: 14px;
     overflow: hidden;
     flex-shrink: 0;
@@ -337,14 +337,14 @@
   }
 
   .combo-img svg {
-    width: 42px;
-    height: 42px;
+    width: 48px;
+    height: 48px;
   }
 
   .combo-info { flex: 1; min-width: 0; }
 
   .combo-name {
-    font-size: 24px;
+    font-size: 32px;
     font-weight: 800;
     color: #fff;
     text-transform: uppercase;
@@ -353,7 +353,7 @@
   }
 
   .combo-desc {
-    font-size: 15px;
+    font-size: 18px;
     color: rgba(255,255,255,0.35);
     margin-top: 2px;
   }
@@ -367,7 +367,7 @@
   }
 
   .combo-price {
-    font-size: 36px;
+    font-size: 44px;
     font-weight: 900;
     color: #ffd235;
     flex-shrink: 0;
@@ -392,21 +392,21 @@
     gap: 12px;
   }
 
-  .flat-icon { font-size: 28px; }
+  .flat-icon { font-size: 34px; }
   .flat-name {
-    font-size: 15px;
+    font-size: 20px;
     font-weight: 700;
     color: rgba(255,255,255,0.7);
     text-transform: uppercase;
     letter-spacing: 1px;
   }
   .flat-price {
-    font-size: 24px;
+    font-size: 32px;
     font-weight: 900;
     color: #ffd235;
   }
   .flat-unit {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 500;
     color: rgba(255,255,255,0.3);
   }
@@ -437,36 +437,17 @@
   }
 
   .hero-badge {
-    background: linear-gradient(90deg, #ffd235 0%, #ff7b3a 25%, #fff 50%, #ff7b3a 75%, #ffd235 100%);
-    background-size: 200% 100%;
-    animation: shimmer 3s ease-in-out infinite;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    /* Reset: we need visible bg for badge */
-    -webkit-text-fill-color: #1a0a2e;
-    -webkit-background-clip: padding-box;
-    background-clip: padding-box;
+    background: linear-gradient(135deg, #ffd235, #ff7b3a);
   }
 
-  /* Deal Icon - Glow Pulse */
-  @keyframes glowPulse {
-    0%, 100% { box-shadow: 0 0 20px rgba(255,123,58,0.15), 0 0 40px rgba(255,123,58,0.05); }
-    50% { box-shadow: 0 0 30px rgba(255,123,58,0.3), 0 0 60px rgba(255,123,58,0.1); }
-  }
-
+  /* Deal Icon - Gentle static glow */
   .hero-deal-icon {
-    animation: glowPulse 3s ease-in-out infinite;
+    box-shadow: 0 0 20px rgba(255,123,58,0.12);
   }
 
-  /* Deal Price - Subtle Pulse */
-  @keyframes pricePulse {
-    0%, 100% { transform: scale(1); text-shadow: 0 4px 24px rgba(255,210,53,0.3); }
-    50% { transform: scale(1.03); text-shadow: 0 4px 32px rgba(255,210,53,0.5); }
-  }
-
+  /* Deal Price - No animation, static glow */
   .hero-deal-price {
-    animation: pricePulse 2.5s ease-in-out infinite;
+    text-shadow: 0 4px 24px rgba(255,210,53,0.3);
     display: inline-block;
   }
 
@@ -512,21 +493,9 @@
     animation: dealReveal 0.8s ease both;
   }
 
-  /* Sparkle particles around deal */
+  /* Sparkle particles - hidden for calmer look */
   .deal-sparkle {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: #ffd235;
-    pointer-events: none;
-    animation: sparkleFloat 4s ease-in-out infinite;
-  }
-
-  @keyframes sparkleFloat {
-    0%, 100% { opacity: 0; transform: translateY(0) scale(0.5); }
-    20% { opacity: 0.8; transform: translateY(-10px) scale(1); }
-    80% { opacity: 0.3; transform: translateY(-25px) scale(0.7); }
+    display: none;
   }
 
   /* Middle hero section - Combo Visual */

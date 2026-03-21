@@ -36,7 +36,7 @@
 
   /* TOP BANNER */
   .top-banner {
-    height: 80px;
+    height: 56px;
     background: linear-gradient(90deg, #ff3d8e 0%, #8b5cf6 40%, #00e5c8 100%);
     display: flex;
     align-items: center;
@@ -97,8 +97,8 @@
     display: grid;
     grid-template-columns: 1.2fr 0.8fr;
     grid-template-rows: 1fr 1fr;
-    gap: 16px;
-    padding: 20px 24px;
+    gap: 10px;
+    padding: 10px 16px;
   }
 
   /* CATEGORY CARD */
@@ -130,22 +130,22 @@
     display: flex;
     align-items: center;
     gap: 14px;
-    padding: 18px 28px 10px;
+    padding: 12px 22px 6px;
     flex-shrink: 0;
   }
 
   .cat-icon-wrap {
-    width: 52px;
-    height: 52px;
+    width: 56px;
+    height: 56px;
     border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 28px;
+    font-size: 32px;
   }
 
   .cat-name {
-    font-size: 30px;
+    font-size: 42px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -156,17 +156,17 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 4px 20px 16px;
-    gap: 4px;
-    justify-content: center;
+    padding: 2px 16px 10px;
+    gap: 2px;
+    justify-content: flex-start;
   }
 
   .product-row {
     display: flex;
     align-items: center;
-    padding: 10px 16px;
-    border-radius: 14px;
-    gap: 16px;
+    padding: 8px 14px;
+    border-radius: 12px;
+    gap: 14px;
     position: relative;
   }
 
@@ -180,41 +180,41 @@
   }
 
   .product-row .p-icon {
-    font-size: 36px;
-    width: 52px;
+    font-size: 50px;
+    width: 64px;
     text-align: center;
     flex-shrink: 0;
   }
 
   .product-row .p-name {
     flex: 1;
-    font-size: 26px;
+    font-size: 42px;
     font-weight: 700;
     color: #fff;
   }
 
   .product-row .p-desc {
-    font-size: 16px;
+    font-size: 22px;
     color: rgba(255,255,255,0.4);
     flex-shrink: 0;
-    margin-right: 12px;
+    margin-right: 10px;
   }
 
   .product-row .p-price {
-    font-size: 32px;
+    font-size: 50px;
     font-weight: 900;
     font-variant-numeric: tabular-nums;
     flex-shrink: 0;
-    min-width: 100px;
+    min-width: 110px;
     text-align: right;
   }
 
   .product-row .p-badge {
     background: linear-gradient(135deg, #ffd235, #ff7b3a);
     color: #1a0a2e;
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 800;
-    padding: 3px 10px;
+    padding: 5px 14px;
     border-radius: 100px;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -224,7 +224,7 @@
 
   /* BOTTOM BAR */
   .bottombar {
-    height: 48px;
+    height: 34px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -310,10 +310,33 @@
   .cat-icon-wrap {
     animation: softPulse 4s ease-in-out infinite;
   }
+
+  /* Sterne-Hintergrund */
+  .stars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle 5s ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.05; }
+    50% { opacity: 0.3; }
+  }
+  .screen { position: relative; z-index: 1; }
 </style>
 </head>
 <body>
 
+<div class="stars" id="stars"></div>
 <div class="screen">
 
   <div class="top-banner">
@@ -347,8 +370,9 @@
   };
 
   const CAT_COLORS = {
-    'Burger': 'teal', 'Pizza': 'pink',
-    'Würstchen': 'yellow', 'Fingerfood': 'purple',
+    'Burger': 'teal', 'Burger & Wurst': 'teal',
+    'Pizza': 'pink',
+    'Würstchen': 'yellow', 'Fingerfood': 'yellow',
   };
 
   // Custom SVG Burger-Icons (stroke-based, neon style)
@@ -459,7 +483,7 @@
     const essenItems = filterByPage(data, 'Essen');
     const grouped = groupByCategory(essenItems);
     const container = document.getElementById('content');
-    const cats = ['Burger', 'Pizza', 'Würstchen', 'Fingerfood'];
+    const cats = ['Burger', 'Burger & Wurst', 'Pizza', 'Würstchen', 'Fingerfood'];
 
     let html = '';
     for (const cat of cats) {
@@ -469,6 +493,18 @@
     }
     container.innerHTML = html;
   }
+
+  // Sterne erzeugen
+  (function() {
+    const c = document.getElementById('stars');
+    let h = '';
+    for (let i = 0; i < 30; i++) {
+      const x = Math.random()*100, y = Math.random()*100;
+      const d = Math.random()*5, s = 1.5 + Math.random()*2;
+      h += `<div class="star" style="left:${x}%;top:${y}%;width:${s}px;height:${s}px;animation-delay:${d}s"></div>`;
+    }
+    c.innerHTML = h;
+  })();
 
   startAutoRefresh(render);
 </script>
