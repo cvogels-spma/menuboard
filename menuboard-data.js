@@ -173,5 +173,4 @@ function startAutoRefresh(renderFn) {
  * dass der Browser-Cache aktualisiert wird.
  */
 const PAGE_RELOAD_INTERVAL = 30 * 60 * 1000; // 30 Minuten
-setTimeout(() => { window.location.reload(); }, PAGE_RELOAD_INTERVAL);
 setInterval(() => { window.location.reload(); }, PAGE_RELOAD_INTERVAL);

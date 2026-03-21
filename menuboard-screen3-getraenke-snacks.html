@@ -36,7 +36,7 @@
 
   /* TOP BANNER */
   .top-banner {
-    height: 80px;
+    height: 60px;
     background: linear-gradient(90deg, #00e5c8 0%, #8b5cf6 50%, #ffd235 100%);
     display: flex;
     align-items: center;
@@ -45,28 +45,28 @@
   }
 
   .banner-text {
-    font-size: 40px;
+    font-size: 36px;
     font-weight: 800;
     color: #1a0a2e;
     text-transform: uppercase;
     letter-spacing: 4px;
   }
 
-  .banner-emoji { font-size: 40px; }
+  .banner-emoji { font-size: 36px; }
 
   /* MAIN LAYOUT - 3 Spalten */
   .content {
     flex: 1;
     display: flex;
-    gap: 14px;
-    padding: 16px 20px;
+    gap: 8px;
+    padding: 8px 14px;
     overflow: hidden;
   }
 
   .col {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
     flex: 1;
     min-height: 0;
   }
@@ -74,12 +74,12 @@
   /* FEATURED PRODUCT HIGHLIGHT */
   .featured {
     background: rgba(255,255,255,0.06);
-    border-radius: 16px;
+    border-radius: 12px;
     border: 1px solid rgba(255,210,53,0.2);
-    padding: 12px 18px;
+    padding: 6px 12px;
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 10px;
     flex-shrink: 0;
     position: relative;
     overflow: hidden;
@@ -128,13 +128,13 @@
   }
 
   .featured-name {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 800;
     color: #fff;
   }
 
   .featured-price {
-    font-size: 34px;
+    font-size: 38px;
     font-weight: 900;
     color: #ffd235;
     text-shadow: 0 2px 12px rgba(255,210,53,0.3);
@@ -145,7 +145,7 @@
   .featured.super {
     border-color: rgba(0,229,200,0.3);
     background: linear-gradient(135deg, rgba(0,229,200,0.1) 0%, rgba(139,92,246,0.08) 100%);
-    padding: 14px 20px;
+    padding: 8px 14px;
   }
 
   .featured.super::before {
@@ -154,9 +154,9 @@
   }
 
   .featured.super .featured-icon {
-    font-size: 52px;
-    width: 76px;
-    height: 76px;
+    font-size: 48px;
+    width: 66px;
+    height: 66px;
   }
 
   .featured.super .featured-badge {
@@ -167,17 +167,17 @@
   }
 
   .featured.super .featured-name {
-    font-size: 28px;
+    font-size: 32px;
   }
 
   .featured.super .featured-price {
-    font-size: 40px;
+    font-size: 44px;
   }
 
   /* LIST PANEL */
   .list-panel {
     background: rgba(255,255,255,0.05);
-    border-radius: 18px;
+    border-radius: 14px;
     border: 1px solid rgba(255,255,255,0.06);
     overflow: hidden;
     display: flex;
@@ -188,8 +188,8 @@
   .list-head {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 6px 14px;
+    gap: 6px;
+    padding: 3px 10px;
     position: relative;
     flex-shrink: 0;
   }
@@ -206,17 +206,17 @@
   }
 
   .list-head-icon {
-    font-size: 24px;
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
+    font-size: 22px;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   .list-head-title {
-    font-size: 23px;
+    font-size: 26px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 1.5px;
@@ -224,7 +224,7 @@
 
   .list-body {
     flex: 1;
-    padding: 4px 10px 6px;
+    padding: 1px 8px 2px;
     display: flex;
     flex-direction: column;
     gap: 0;
@@ -236,8 +236,8 @@
   .li {
     display: flex;
     align-items: center;
-    padding: 2px 8px;
-    border-radius: 6px;
+    padding: 3px 10px;
+    border-radius: 8px;
     gap: 6px;
     flex-shrink: 0;
   }
@@ -251,8 +251,8 @@
   }
 
   .li-name {
-    font-size: 22px;
-    font-weight: 600;
+    font-size: 28px;
+    font-weight: 700;
     color: #fff;
     white-space: nowrap;
     flex-shrink: 1;
@@ -263,28 +263,28 @@
   .li-dots {
     flex: 1;
     border-bottom: 2px dotted rgba(255,255,255,0.12);
-    min-width: 12px;
-    margin: 0 6px;
+    min-width: 8px;
+    margin: 0 4px;
     align-self: flex-end;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
   }
 
   .li-desc {
-    font-size: 15px;
-    color: rgba(255,255,255,0.35);
+    font-size: 18px;
+    color: rgba(255,255,255,0.4);
     flex-shrink: 0;
-    margin-right: 6px;
+    margin-right: 4px;
   }
 
   .li-label {
-    font-size: 10px;
+    font-size: 13px;
     font-weight: 700;
-    padding: 2px 6px;
+    padding: 3px 8px;
     border-radius: 100px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     flex-shrink: 0;
-    margin-right: 6px;
+    margin-right: 4px;
   }
 
   .li-label.bio {
@@ -306,12 +306,12 @@
   }
 
   .li-price {
-    font-size: 24px;
-    font-weight: 800;
+    font-size: 30px;
+    font-weight: 900;
     color: #ffd235;
     flex-shrink: 0;
     font-variant-numeric: tabular-nums;
-    min-width: 62px;
+    min-width: 74px;
     text-align: right;
   }
 
@@ -322,7 +322,7 @@
 
   /* BOTTOM BAR */
   .bottombar {
-    height: 44px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -332,7 +332,7 @@
   }
 
   .bottom-text {
-    font-size: 15px;
+    font-size: 14px;
     color: rgba(255,255,255,0.35);
   }
 
@@ -437,6 +437,33 @@
 
   .li.hl .li-price {
     animation: glowPulse 3s ease-in-out infinite;
+  }
+
+  /* Spalte 3 (Snacks) - kompakter da mehr Items */
+  .col.col-snacks .li {
+    padding: 0 8px;
+  }
+  .col.col-snacks .li-name {
+    font-size: 23px;
+  }
+  .col.col-snacks .li-price {
+    font-size: 25px;
+    min-width: 58px;
+  }
+  .col.col-snacks .list-head {
+    padding: 2px 10px;
+  }
+  .col.col-snacks .list-head-title {
+    font-size: 22px;
+  }
+  .col.col-snacks .list-panel {
+    flex: 1;
+  }
+  .col.col-snacks {
+    gap: 3px;
+  }
+  .col.col-snacks .list-body {
+    padding: 0 8px 1px;
   }
 </style>
 </head>
@@ -664,7 +691,7 @@
     col2 += '</div>';
 
     // Spalte 3: Snacks & Suesses - nur 2 Panels fuer weniger Overflow
-    let col3 = '<div class="col">';
+    let col3 = '<div class="col col-snacks">';
 
     // Panel 1: Gebaeck (Donuts + Muffins + Kuchen)
     const gebaeckItems = [
@@ -675,7 +702,7 @@
     if (gebaeckItems.length) {
       const first = sg['Donuts']?.[0] || gebaeckItems[0];
       const items = gebaeckItems.map(i => ({...i, Icon: i['Icon'] || first['Icon'], Farbe: i['Farbe'] || first['Farbe']}));
-      col3 += renderPanel('Gebäck & Kuchen', items, 'none');
+      col3 += renderPanel('Gebäck & Kuchen', items, 1);
     }
 
     // Panel 2: Alles Suesse + Chips (Schokoriegel + Suessigkeiten + Chips)
@@ -684,7 +711,7 @@
       ...(sg['Süßigkeiten'] || []),
       ...(sg['Chips & Snacks'] || []),
     ];
-    if (allSnacks.length) col3 += renderPanel('Snacks & Süßes', allSnacks, 'none');
+    if (allSnacks.length) col3 += renderPanel('Snacks & Süßes', allSnacks, 1);
 
     col3 += '</div>';
 
